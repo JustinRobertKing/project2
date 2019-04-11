@@ -16,6 +16,7 @@
   "author": "Justin King",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^7.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-ejs-layouts": "^2.5.0"
