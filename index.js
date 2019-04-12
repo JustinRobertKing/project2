@@ -3,6 +3,7 @@ require('dotenv').config()
 
 // Require necessary modules
 let express = require('express')
+let flash = require('connect-flash')
 let layouts = require('express-ejs-layouts')
 
 // Declare Express app
@@ -13,6 +14,7 @@ app.set('view engine', 'ejs')
 
 // Include (use) middle ware
 app.use(layouts)
+app.use(flash())
 app.use(express.urlencoded({ extended: false }))
 
 // Include routes from controllers
