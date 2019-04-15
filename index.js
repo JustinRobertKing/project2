@@ -13,7 +13,8 @@ let app = express()
 // Set view engine
 app.set('view engine', 'ejs')
 
-// Include (use) middle ware
+// Include (use) middleware
+app.use('/', express.static('static'))
 app.use(layouts)
 app.use(express.urlencoded({ extended: false }))
 app.use(session({
