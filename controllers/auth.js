@@ -33,8 +33,13 @@ router.post('/signup', (req, res) => {
 			defaults: req.body
 		})
 		.spread((user, wasCreated) => {
-			req.flash('success', 'You successfully did a thing')
-			res.redirect('/')
+			if (wasCreated) {
+				req.flash('success', 'You successfully did a thing')
+				res.redirect('/')
+			} else {
+				req.flash('error', 'Account already exists; please log in')
+				res.redirect('/auth/login')
+			}
 		})
 		.catch((error) => {
 			// Print all error info to the terminal (not okay for the user to see)
