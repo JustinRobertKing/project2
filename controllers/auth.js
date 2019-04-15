@@ -20,7 +20,14 @@ router.get('/signup', (req, res) => {
 
 router.post('/signup', (req, res) => {
 	console.log(req.body)
-	res.send('POSTed to auth/signup')
+	if (req.body.password !== req.body.password_verify) {
+		console.log("\"" + req.body.password + "\"" + ' does not match ' + "\"" + req.body.password_verify + "\"")
+		req.flash('error', 'Passwords do not match')
+		res.redirect('/auth/signup')
+	} else {
+		req.flash('success', "You successfully did a thing")
+		res.redirect('/')
+	}
 })
 
 // Export the router object so that the routes can be used
