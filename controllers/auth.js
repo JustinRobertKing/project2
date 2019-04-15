@@ -37,8 +37,18 @@ router.post('/signup', (req, res) => {
 			res.redirect('/')
 		})
 		.catch((error) => {
+			// Print all error info to the terminal (not okay for the user to see)
 			console.log('Error in POST /auth/signup:', error)
+			// Generic error for all cases
 			req.flash('error', 'Something went wrong')
+			// Validation-specific errors (okay to show the user)
+			if (error && error.errors) {
+				error.errors.forEach((e) => {
+					if (e.type == 'Validation error') {
+						req.flash('error', 'Validation issue - ' + e.message)
+					}
+				})
+			}
 			res.redirect('/auth/signup')
 		})
 	}
