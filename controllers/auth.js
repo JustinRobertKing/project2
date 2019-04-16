@@ -59,5 +59,10 @@ router.post('/signup', (req, res) => {
 	}
 })
 
+// GET /auth/logout 
+router.get('/logout', (req, res) => {
+	res.send('logout')
+})
+
 // Export the router object so that the routes can be used
 module.exports = router

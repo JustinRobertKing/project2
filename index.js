@@ -32,10 +32,16 @@ app.use((req, res, next) => {
 
 // Include routes from controllers
 app.use('/auth', require('./controllers/auth'))
+app.use('/profile', require('./controllers/profile'))
 
 // Make a home route: GET /
 app.get('/', (req, res) => {
 	res.render('home')
+})
+
+// Catch-all route - render the 404 page
+app.get('*', (req, res) => {
+	res.render('404')
 })
 
 // Listen from your port
