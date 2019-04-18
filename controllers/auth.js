@@ -7,21 +7,26 @@ let router = express.Router()
 // Reference the models
 let db = require('../models')
 
+// Reference to passport so we can use the authenticate function
+let passport = require('../config/passportConfig')
+
 // Declare routs
 router.get('/login', (req, res) => {
 	res.render('auth/login')
 })
 
-router.post('/login', (req, res) => {
-	console.log(req.body)
-	res.send('POSTed to auth/login')
-})
+router.post('/login', passport.authenticate('local', {
+	successRedirect: '/profile',
+	successFlash: 'Login Successfull!',
+	failureRedirect: '/auth/login',
+	failureFlash: 'Invalid Credentials'
+}))
 
 router.get('/signup', (req, res) => {
 	res.render('auth/signup')
 })
 
-router.post('/signup', (req, res) => {
+router.post('/signup', (req, res, next) => {
 	console.log(req.body)
 	if (req.body.password !== req.body.password_verify) {
 		console.log("\"" + req.body.password + "\"" + ' does not match ' + "\"" + req.body.password_verify + "\"")
@@ -34,8 +39,13 @@ router.post('/signup', (req, res) => {
 		})
 		.spread((user, wasCreated) => {
 			if (wasCreated) {
-				req.flash('success', 'You successfully did a thing')
-				res.redirect('/')
+				// Automatically log the new user in
+				passport.authenticate('local', {
+					successRedirect: '/profile',
+					successFlash: 'Login Successfull!',
+					failureRedirect: '/auth/login',
+					failureFlash: 'Invalid Credentials'
+				})(req, res, next)
 			} else {
 				req.flash('error', 'Account already exists; please log in')
 				res.redirect('/auth/login')
@@ -61,7 +71,9 @@ router.post('/signup', (req, res) => {
 
 // GET /auth/logout 
 router.get('/logout', (req, res) => {
-	res.send('logout')
+	req.logout()
+	req.flash('success', 'Logout Successfull')
+	res.redirect('/')
 })
 
 // Export the router object so that the routes can be used

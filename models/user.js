@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Please enter a valid URL'
         }
       }
+    },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {
     hooks: {

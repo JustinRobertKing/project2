@@ -26,7 +26,7 @@ passport.deserializeUser((id, callback) => {
 
 // Set up the LocalStrategy
 passport.use(new LocalStrategy({
-	usernameField: 'email'
+	usernameField: 'email',
 	passwordField: 'password'
 }, (email, password, callback) => {
 	// Try to look up the user by email
@@ -46,7 +46,7 @@ passport.use(new LocalStrategy({
 	.catch((error) => {
 		console.log('error', error)
 	})
-})
+}))
 
 // Make sure I can use this file in other pages
 module.exports = passport
