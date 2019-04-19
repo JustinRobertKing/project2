@@ -36,6 +36,7 @@ This is the default schema provided. Add additional migrations as needed for mor
 ### Default Routes Table
 
 By default, the following routes are provided
+
 | Method | Path | Location | Purpose |
 |--------|------|----------|---------|
 | GET | / | index.js | Home Page |
