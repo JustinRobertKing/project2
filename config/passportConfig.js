@@ -59,7 +59,7 @@ passport.use(new FacebookStrategy({
 	callbackURL: process.env.BASE_URL + '/auth/callback/facebook',
 	profileFields: ['id', 'email', 'displayName', 'photos'],
 	enableProof: true
-}, (accessToken, refreshToken, profile, callback) => {
+}, (FacebookAccessToken, refreshToken, profile, callback) => {
 	// Grab the primary email
 	let facebookEmail = profile.emails.length ? profile.emails[0] : ''
 
@@ -70,8 +70,34 @@ passport.use(new FacebookStrategy({
 	.then((existingUser) => {
 		if (existingUser && facebookEmail) {
 			// This is a returning user - just update their facebook id and token
+			existingUser.update({
+				facebookId: profile.id,
+				facebookToken: FacebookAccessToken
+			})
+			.then((updatedUser) => {
+				callback(null, updatedUser)
+			})
+			.catch(callback)
 		} else {
 			// This is a new user - we need to create them
+			let userNameArr = profile.displayName.split(' '),
+			let photo = profile.photos.length ? profile.photos[0] : 
+			db.user.findOrCreate({
+				where: { facebookId: profile.id },
+				defaults: {
+					facebookToken: FacebookAccessToken,
+					email: facebookEmail,
+					firstname: userNameArr[0],
+					lastname: userNameArr[userNameArr.length - 1],
+					birthdate: profile.birthday,
+					image: photo,
+					bio: 'This account was created with Facebook'
+				}
+			})
+			.spread((foundOrCreatedUser, wasCreated) => {
+				callback(null, foundOrCreatedUser)
+			})
+			.catch(callback)
 		}
 	})
 }))
