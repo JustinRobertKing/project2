@@ -60,8 +60,9 @@ passport.use(new FacebookStrategy({
 	profileFields: ['id', 'email', 'displayName', 'photos'],
 	enableProof: true
 }, (FacebookAccessToken, refreshToken, profile, callback) => {
+	console.log(profile)
 	// Grab the primary email
-	let facebookEmail = profile.emails.length ? profile.emails[0] : ''
+	let facebookEmail = profile.emails.length ? profile.emails[0].value : ''
 
 	// Look for the email facebook gave us in our local database
 	db.user.findOne({
@@ -80,8 +81,8 @@ passport.use(new FacebookStrategy({
 			.catch(callback)
 		} else {
 			// This is a new user - we need to create them
-			let userNameArr = profile.displayName.split(' '),
-			let photo = profile.photos.length ? profile.photos[0] : 
+			let userNameArr = profile.displayName.split(' ')
+			let photo = profile.photos.length ? profile.photos[0].value : 'https://res.cloudinary.com/dbm4iqqrz/image/upload/v1555700504/Profile_avatar_placeholder_large_bqsbnw.png'
 			db.user.findOrCreate({
 				where: { facebookId: profile.id },
 				defaults: {
@@ -89,7 +90,7 @@ passport.use(new FacebookStrategy({
 					email: facebookEmail,
 					firstname: userNameArr[0],
 					lastname: userNameArr[userNameArr.length - 1],
-					birthdate: profile.birthday,
+					birthdate: profile._json.birthday,
 					image: photo,
 					bio: 'This account was created with Facebook'
 				}
