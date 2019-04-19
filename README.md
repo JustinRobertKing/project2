@@ -55,9 +55,111 @@ Additional routes from `with-facebook` branch if using oAuth:
 | GET | /auth/facebook | controllers/auth.js | Outgoing Request to Facebook |
 | GET | /auth/callback/facebook | controllers/auth.js | Incoming Data from Facebook |
 
-## User Model Set Up
+## Steps To Use
 
-#### Adding Migrations
+#### 1. Clone this repository, but with a different name
+
+On your terminal, run:
+
+```
+git clone <repo_link> <new_name>
+```
+
+#### 2. Decide what the new project needs
+
+If you do not need facebook auth, use the `master` branch. Otherwise, switch to the `with-facebook` branch. 
+
+```
+git checkout with-facebook
+```
+
+> Note: If using Facebook, you will need to set up a new app on developers.facebook.com
+
+**Part B: Remove stuff not being used**
+
+For example: if you don't intend to have adminw on the new project, remove`middleware/adminLoggedIn.js` and the routes/views for the admin dashboard.
+
+#### 3. Install node modules from package.json
+
+On your terminal, run:
+
+```
+npm install
+```
+
+> Tip: `npm i` can be used as a shortcut
+
+#### 5. Restructure Git Remotes
+
+Basically, this is git's version of updating the address book.
+
+* First, remove the "old" remote.
+	* `git remote remove origin`
+* Then go to github and create a new, empty repository
+* Copy the new repository link
+* Set up a new remote pointing to the new repository
+	* `git remote add origin <new_repo_link>`
+
+#### 5. Make a new .env file
+
+At minimum, the following is needed: 
+
+```
+SESSION_SECRET = 'This is a string for the session to use (like a salt)'
+```
+
+Optional others, including facebook specific ones: 
+
+```
+PORT = 3000
+FACEBOOK_APP_ID = 123456789012345
+FACEBOOK_APP_SECRET = '1234567890abcdef1234567890abcdef'
+BASE_URL = 'http://localhost:3000'
+```
+
+#### 6. Customize with the new project's name
+
+* Title in `layout.ejs`
+* Logo and links in `nav.ejs`
+* The name, description, and repo fields in `package.json`
+* Remove the `README.md` content (this) and put a stub for the new project's readme
+
+#### 7. Create a new database for the new project
+
+```
+createdb <new_database_name>
+```
+
+#### 8. Set up Sequelize
+
+First, update the development settings in the `config/config.json` file.
+
+```js
+{
+  "development": {
+    "database": "<new_database_name>",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
+
+```
+
+(Optional) If additional fields on the user table are needed, follow directions [here](#adding-migrations) to create additional migrations.
+
+Then, do the Sequelize migrations.
+
+### Adding Migrations
 
 Here is an example of adding an `age` field to the user table
 
