@@ -157,7 +157,35 @@ First, update the development settings in the `config/config.json` file.
 
 (Optional) If additional fields on the user table are needed, follow directions [here](#adding-migrations) to create additional migrations.
 
-Then, do the Sequelize migrations.
+Then, do the Sequelize migrations with this command:
+
+```
+sequelize db:migrate
+```
+
+#### 9. Run the server locally and ensure that it works
+
+If you have `nodemon` installed globally, run `nodemon` as a command in the root folder.
+
+Otherwise, run `node index.js`.
+
+Unless specified otherwise, the port in use will be 3000.
+
+#### 10. Commit and push to your new project
+
+> Note: We switched the origin remote to point to the new github project in step 4. Make sure that this is done properly bu checking the command `git remote-v` to check the remote locations.
+
+```
+git add -A
+git commit -m "Initial commit"
+git push origin master
+```
+
+#### 11. Next Steps
+
+Assuming that the set-up steps went smoothly, now you can add new models/migrations, new controllers and routes, etc., and just generally start developing as if you had started from scratch.
+
+## Notes on Optional Steps
 
 ### Adding Migrations
 
@@ -171,6 +199,14 @@ Here is an example of adding an `age` field to the user table
 * STEP 3: Add the column into the user model
 	* `user.js` - located in the models folder
 
-## Usage
+### Facebook App Set Up 
 
-TBD - Directions on how to use this boilerplate code in a future project
+> Note: A Facebook login is required
+
+* Go to developers.facebook.com
+* Create a new app
+* Add a platform: website
+* Add a product: Facebook login
+	* Set Valid OAuth Redirect URL to `https://yoursite.com/auth/callback/facebook`
+
+* Copy the App Id and App Secret to the `.env` file
