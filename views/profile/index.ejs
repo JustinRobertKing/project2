@@ -1,3 +1,16 @@
 <h1 class="center pink-text">
 	<%= user.firstname %>'s Dashboard
 </h1>
+
+<div class="row">
+	<div class="col s12 m4">
+		<img class="responsive-img" src="<%= user.image %>">
+	</div>
+	<div class="col s12 m4">
+		<h4><strong>Name: </strong><%= user.firstname %> <%= user.lastname%></h4>
+		<p><strong>Admin: </strong><%= user.admin ? 'Yes' : 'No' %></p>
+		<p><strong>Birthdate: </strong><%= user.birthdate %></p>
+		<hr>
+		<p><%= user.bio %></p>
+	</div>
+</div>
