@@ -1,56 +1,74 @@
-<h1>Sign Up</h1>
-<p>Already a member? Go to the <a href="/auth/signup">log in page</a> instead!</p>
+<div class="center-align">
+	<h1>Sign Up</h1>
+	<small class="grey-text">(It's totally free and we will NEVER email you)</small>
+	<p>
+		Already a member? <a href="/auth/login" class="pink-text">Log in</a>!
+	</p>
+	<br>
+	<a href="/auth/facebook">
+		<button class="btn waves-effect waves-light pink" type="submit">Sign up with Facebook
+			<i class="material-icons right">account_box</i>
+		</button>
+	</a>
+	<br>
+	<br>
+	<br>
 
-<div class="row">
-	<form class="col s12" method="POST" action="/auth/signup">
-		<div class="row">
-			<div class="input-field col s12 m6">
-				<input placeholder="First Name" id="firstname" name="firstname" type="text" class="validate">
-				<label for="firstname">First Name</label>
+	<h4>Sign up by email:</h4>
+
+
+
+	<div class="row">
+		<form class="col s12" method="POST" action="/auth/signup">
+			<div class="row">
+				<div class="input-field col s12 m6">
+					<input placeholder="First Name" id="firstname" name="firstname" type="text" class="validate">
+					<label for="firstname">First Name</label>
+				</div>
+				<div class="input-field col s12 m6">
+					<input placeholder="Last Name" id="lastname" name="lastname" type="text" class="validate">
+					<label for="lastname">Last Name</label>
+				</div>
 			</div>
-			<div class="input-field col s12 m6">
-				<input placeholder="Last Name" id="lastname" name="lastname" type="text" class="validate">
-				<label for="lastname">Last Name</label>
+			<div class="row">
+				<div class="input-field col s12 m6">
+					<input placeholder="Your email" id="email" name="email" type="email" class="validate">
+					<label for="email">Email</label>
+				</div>
+				<div class="input-field col s12 m6">
+					<input placeholder="birthdate"id="birthdate" name="birthdate" type="text" class="datepicker validate">
+					<label for="birthdate">Birthdate</label>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col s12 m6">
-				<input placeholder="Your email" id="email" name="email" type="email" class="validate">
-				<label for="email">Email</label>
+			<div class="row">
+				<div class="input-field col s12">
+					<input placeholder="Your picture" id="image" name="image" type="url" class="validate">
+					<label for="image">Image URL</label>
+				</div>
 			</div>
-			<div class="input-field col s12 m6">
-				<input placeholder="birthdate"id="birthdate" name="birthdate" type="text" class="datepicker validate">
-				<label for="birthdate">Birthdate</label>
+			<div class="row">
+				<div class="input-field col s12 m6">
+					<input placeholder="Create password" id="password" name="password" type="password" class="validate">
+					<label for="password">Password</label>
+				</div>
+				<div class="input-field col s12 m6">
+					<input placeholder="Confirm password" id="password_verify" name="password_verify" type="password" class="validate">
+					<label for="password_verify">Password</label>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col s12">
-				<input placeholder="Your picture" id="image" name="image" type="url" class="validate">
-				<label for="image">Image URL</label>
+			<div class="row">
+				<div class="input-field col s12">
+					<textarea placeholder="Bio" id="bio" name="bio" class="materialize-textarea validate"></textarea>
+					<label for="bio">User Bio</label>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col s12 m6">
-				<input placeholder="Create password" id="password" name="password" type="password" class="validate">
-				<label for="password">Password</label>
+			<div class="row">
+				<div class="col s12">
+					<button class="btn waves-effect waves-light pink" type="submit">Submit
+						<i class="material-icons right">send</i>
+					</button>
+				</div>
 			</div>
-			<div class="input-field col s12 m6">
-				<input placeholder="Confirm password" id="password_verify" name="password_verify" type="password" class="validate">
-				<label for="password_verify">Password</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col s12">
-				<textarea placeholder="Bio" id="bio" name="bio" class="materialize-textarea validate"></textarea>
-				<label for="bio">User Bio</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<button class="btn waves-effect waves-light right pink" type="submit">Submit
-					<i class="material-icons right">send</i>
-				</button>
-			</div>
-		</div>
-	</form>
+		</form>
+	</div>
 </div>
