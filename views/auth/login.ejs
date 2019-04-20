@@ -1,33 +1,39 @@
-<h1>Log In</h1>
-<p>New to this site? Go to the <a href="/auth/signup">sign up page</a> instead!</p>
-<hr>
+<div class="center-align">
+	<h1>Log In</h1>
+	<p>Don't have an account? <a href="/auth/signup" class="pink-text">Create one</a>!<br>
+	<small class="grey-text">(It's totally free and we will NEVER email you)</small>
+	</p>
+	<br>
+	<a href="/auth/facebook">
+		<button class="btn waves-effect waves-light pink" type="submit">Login with Facebook
+			<i class="material-icons right">account_box</i>
+		</button>
+	</a>
+	<br>
+	<br>
+	<br>
 
-<a href="/auth/facebook">
-	<button class="btn waves-effect waves-light pink" type="submit">Login with Facebook
-		<i class="material-icons right">account_box</i>
-	</button>
-</a>
+	<h4>Sign in by email:</h4>
 
-<h2>OR</h2>
-
-<div class="row">
-	<form class="col s12" method="POST" action="/auth/login">
-		<div class="row">
-			<div class="input-field col s12 m6">
-				<input placeholder="Your email" id="email" name="email" type="email" class="validate">
-				<label for="email">Email</label>
+	<div class="row">
+		<form class="col s12" method="POST" action="/auth/login">
+			<div class="row">
+				<div class="input-field col s12 m6">
+					<input placeholder="Your email" id="email" name="email" type="email" class="validate">
+					<label for="email">Email</label>
+				</div>
+				<div class="input-field col s12 m6">
+					<input placeholder="password" id="password" name="password" type="password" class="validate">
+					<label for="password">Password</label>
+				</div>
 			</div>
-			<div class="input-field col s12 m6">
-				<input placeholder="password" id="password" name="password" type="password" class="validate">
-				<label for="password">Password</label>
+			<div class="row center-align">
+				<div class="col s12">
+					<button class="btn waves-effect waves-light pink" type="submit">Submit
+						<i class="material-icons right">send</i>
+					</button>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s12">
-				<button class="btn waves-effect waves-light right pink" type="submit">Submit
-					<i class="material-icons right">send</i>
-				</button>
-			</div>
-		</div>
-	</form>
+		</form>
+	</div>
 </div>

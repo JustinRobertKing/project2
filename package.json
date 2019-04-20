@@ -1,7 +1,7 @@
 {
-  "name": "auth-boiler-change-each-use",
+  "name": "beer-app",
   "version": "1.0.0",
-  "description": "This is a generic template for future project baselines. It contains working auth and a user model and database.",
+  "description": "find and save breweries/beer information in your area",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
