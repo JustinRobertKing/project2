@@ -21,7 +21,7 @@ This is a bare-bones Node/Express app with basic user authentication and authori
 | password | String | hashed with BCrypt before creation of new row |
 | birthdate | Date | Might want to use moment module to format this |
 | admin | Boolean | Set default value to false |
-| image | Text | A URL to an imagee of the user - required field |
+| image | Text | A URL to an image of the user - required field |
 | bio | Text | - |
 
 Additional fields from `with-facebook`
@@ -32,6 +32,33 @@ Additional fields from `with-facebook`
 | facebookToken | String | Facebook Login Token |
 
 This is the default schema provided. Add additional migrations as needed for more data.
+
+### Brewery Schema
+
+| Column | Data Type | Description |
+|--------|-----------|-------------|
+| id | Integer | Primary key |
+| name | String | - |
+| established | String | returns a year from the API |
+| image_url | String | - |
+| long | Decimal | - |
+| lat | Decimal | - |
+| website | String | - |
+| description | Text | - |
+| isInBusiness | Boolean | API returns "Y" or "N" |
+| status | String | "Verified" or not |
+
+### Beer Schema
+
+| Column | Data Type | Description |
+|--------|-----------|-------------|
+| id | Integer | Primary key |
+| name | String | - |
+| style | String | Uses shortname from API |
+| image_url | String | - |
+| ibu | Decimal | Bitterness rating | 
+| abv | Decimal | Alcohol percentage
+| availability | String | - |
 
 ### Default Routes Table
 
