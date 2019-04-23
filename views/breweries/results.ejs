@@ -7,8 +7,13 @@
           <p><%= r.streetAddress%></p>
           <p><%= r.locality%>, <%= r.region%> <%= r.postalCode%></p>
         </div>
-        <div class="card-action">
-          <a href="/breweries/show">More Info</a>
+        <div class="card-action center-align">
+          <form method="GET" action="/breweries/<%= r.brewery.id %>">
+            <input type="hidden" name="brewery" value="<%= r.brewery.id %>">
+            <button class="btn waves-effect waves-light pink" type="submit">About this Brewery
+              <i class="material-icons right">info_outline</i>
+            </button>        
+          </form>
         </div>
       </div>
     </div>
