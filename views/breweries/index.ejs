@@ -1,14 +1,49 @@
 <div class="center-align">
 	<h3>Where are you?</h3>
+	<br>
+	<br>
 	<div class="row">
-		<form class="col s12" method="POST" action="/breweries/results">
-			<div class="row center-align">
-				<div class="col s12">
-					<button class="btn waves-effect waves-light pink" name="query" type="submit">Show me beer!
-						<i class="material-icons right">send</i>
-					</button>
-				</div>
+		<button onclick="getLocation()" class="btn waves-effect waves-light pink">Use my current location
+			<i class="material-icons right">my_location</i>
+		</button><p id="check" class="teal-text text-accent-3"></p>
+	</div>
+	<div class="row">
+		<form method="POST" action="/breweries/results">
+			<input type="hidden" id="lat" name="lat" value="">
+			<input type="hidden" id="lng" name="lng" value="">
+			<br>
+			<h5>Or search by city/state:</h5>
+			<div class="input-field col s12 m6">
+				<input type="text" name="city" id="city" placeholder="Enter your city">
+			</div>
+			<div class="input-field col s12 m6">
+				<input type="text" name="state" id="state" placeholder="Enter your state">
+			</div>
+			<div>
+				<br>
+				<button class="btn waves-effect waves-light pink" type="submit">Search
+					<i class="material-icons right">send</i>
+				</button>
 			</div>
 		</form>
 	</div>
 </div>
+<script>
+var lat = document.getElementById("lat");
+var lng = document.getElementById("lng");
+var check = document.getElementById('check')
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(loadPosition);
+  } else { 
+    console.log('Geolocation is not supported by this browser.')
+  }
+}
+
+function loadPosition(position) {
+  lat.value = position.coords.latitude
+  lng.value = position.coords.longitude
+  check.textContent = ' ✓ current location set'
+}
+</script>

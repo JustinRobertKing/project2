@@ -38,27 +38,40 @@ This is the default schema provided. Add additional migrations as needed for mor
 | Column | Data Type | Description |
 |--------|-----------|-------------|
 | id | Integer | Primary key |
+| apiId | String | ID returned by the API | 
 | name | String | - |
 | established | String | returns a year from the API |
-| image_url | String | - |
+| imageUrl | String | - |
 | long | Decimal | - |
 | lat | Decimal | - |
 | website | String | - |
 | description | Text | - |
 | isInBusiness | Boolean | API returns "Y" or "N" |
 | status | String | "Verified" or not |
+| userId | Integer | Foreign key from user table |
+
 
 ### Beer Schema
 
 | Column | Data Type | Description |
 |--------|-----------|-------------|
 | id | Integer | Primary key |
+| apiId | String | ID returned by the API | 
 | name | String | - |
 | style | String | Uses shortname from API |
-| image_url | String | - |
+| imageUrl | String | - |
 | ibu | Decimal | Bitterness rating | 
 | abv | Decimal | Alcohol percentage
 | availability | String | - |
+| breweryId | Integer | Foreign key from brewery table |
+| userId | Integer | Foreign key from user table |
+
+
+### Added Routes Table
+
+| GET | / | index.js | Home - has map |
+| GET | /breweries | controllers/breweries.js | Renders brewery search form |
+| POST | /breweries | controllers/breweries.js | Handles query |
 
 ### Default Routes Table
 

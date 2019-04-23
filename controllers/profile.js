@@ -16,6 +16,16 @@ router.get('/', loggedIn, (req, res) => {
 	res.render('profile/index')
 })
 
+// GET /profile/breweries
+router.get('/breweries', (req, res) => {
+	res.send('profile/breweries stub')	
+})
+
+// GET /profile/breweries/beers
+router.get('/breweries/beers', (req, res) => {
+	res.send('profile/breweries/beers stub')	
+})
+
 // GET /profile/admin
 router.get('/admin', adminLoggedIn, (req, res) => {
 	res.render('profile/admin')
