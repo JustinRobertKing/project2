@@ -2,10 +2,24 @@
   <div class="row">
     <div class="col s12">
       <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
+        <div class="card-content white-text center-align" style="line-height: 1.2;">
           <span class="card-title teal-text text-accent-3" style="font-size: 1.5em;"><strong><%= r.name %></strong></span>
-          <p><%= r.streetAddress%></p>
-          <p><%= r.locality%>, <%= r.region%> <%= r.postalCode%></p>
+          <br>
+          <p>
+            <%= r.phone%>
+          </p>
+          <p>
+            <a href="<%= r.website %>" class="pink-text text-lighten-1"><%= r.website%></a>
+          </p>
+          <hr>
+          <p><i class="material-icons">directions_walk</i> <%= r.distance %> miles away</p>
+          <hr>
+          <p>
+            <small><%= r.streetAddress%></small>
+          </p>
+          <p>
+            <small><%= r.locality%>, <%= r.region%> <%= r.postalCode%></small>
+          </p>
         </div>
         <div class="card-action center-align">
           <form method="GET" action="/breweries/<%= r.brewery.id %>">

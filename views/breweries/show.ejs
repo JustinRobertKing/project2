@@ -9,21 +9,33 @@
         </div>
         <div class="card-content">
 	        <h5 class="teal-text text-accent-3"><%= results.name %></h5>
-	          <a class="waves-effect waves-light btn modal-trigger pink" href="#modal2">Locations</a>
-				  <div id="modal2" class="modal pink modal-fixed-footer">
+	        <br>
+	        <a class="waves-effect waves-light btn modal-trigger pink" href="#modal2">Locations</a>
+	        <br>
+				  <div id="modal2" class="modal blue-grey darken-3 modal-fixed-footer" style="max-height: 90%; height: 90%; top: 5% !important; bottom: 10%; line-height: 1.2">
+			      <div class="navbar-fixed">
+			    		<nav class="teal accent-4">
+				      	<h4 style="margin: 10px;">LOCATIONS</h4>
+			    		</nav>
+			    	</div>
 				    <div class="modal-content">
-				      <h4>Locations</h4>
 				      <% results2.forEach((r) => { %>
 						    <div class="col s12">
 						      <div class="card blue-grey darken-2">
-						        <div class="card-content white-text">
-						          <span class="card-title teal-text text-accent-3" style="font-size: 1em;"><strong><%= r.name %></strong></span>
-						          <p class="col s12">
+						        <div class="card-content white-text blue-grey darken-2">
+						          <span class="card-title teal-text text-accent-3" style="font-size: 1.2em; line-height: 1.2;"><strong><%= r.name %></strong></span>
+						          <br>
+						          <p>
 							          <small><%= r.phone%></small>
-							          <small><%= r.website%>, <%= r.region%> <%= r.postalCode%></small>
+							        </p>
+							        <p>
+							          <a href="<%= r.website %>" class="pink-text text-lighten-1"><small><%= r.website%></small></a>
 						          </p>
-						          <p class="col s12">
+						          <hr>
+						          <p>
 							          <small><%= r.streetAddress%></small>
+							        </p>
+							        <p>
 							          <small><%= r.locality%>, <%= r.region%> <%= r.postalCode%></small>
 						          </p>
 						        </div>
@@ -31,13 +43,16 @@
 						    </div>
 							<% }) %>
 				    </div>
-				    <div class="modal-footer">
-				      <a href="#!" class="modal-close waves-effect waves-green btn-flat teal accent-3 white-text">Agree</a>
+				    <br>
+				    <br>
+				    <br>
+				    <div class="modal-footer blue-grey darken-4">
+				      <a href="#!" class="modal-close waves-effect waves-green btn-flat pink white-text">Close</a>
 				    </div>
 				  </div>	
 	        <br>
 	      	<hr>
-	      	<p><a class="pink-text" href="<%= results.website %>"><%= results.website %></a></p>
+	      	<p><a class="pink-text text-lighten-1" href="<%= results.website %>"><%= results.website %></a></p>
 	      	<hr>
 	        <span class="white-text"><small><%= results.description %></small>
 	        </span>
@@ -51,13 +66,36 @@
       </div>
     </div>
   </div>
-	 <div id="modal1" class="modal bottom-sheet">
-    <div class="modal-content pink">
-      <h4>Beer List</h4>
-      <p></p>
+	 <div id="modal1" class="modal bottom-sheet modal-fixed-footer" style="max-height: 100%; height: 100%; top: 0;">
+    	<div class="navbar-fixed">
+    		<nav class="pink">
+	      	<h4 style="margin: 10px;">BEER LIST</h4>
+    		</nav>
+    	</div>
+    <div class="modal-content blue-grey darken-3 left-align">
+      <% results3.forEach((r) => { %>
+      <h6 class="teal-text text-accent-3">
+      	<%= r.name %>
+      </h6>
+      <p><small>
+      	ABV: <%= r.abv %>%
+      	<% if (r.ibu) { %>
+      	 ~ IBU: <%= r.ibu %>
+      	<% } %>
+      	<a class="add-button btn-floating waves-effect waves-light pink right" 
+      	data-brewery-id="<%= results.id %>" data-beer-apiId="<%= r.id %>" data-beer-name="<%= r.name %>" data-beer-style="<%= r.style %>" data-beer-image="<%= r.labels ? r.labels.large : '' %>" data-beer-ibu="<%= r.ibu %>" data-beer-abv="<%= r.abv %> "data-beer-availability="<%= r.available ? r.available.name : '' %>"><i class="material-icons">add</i></a>
+      </small>
+    	</p>
+    	<p><small>
+      	Style: <%= r.style ? r.style.shortName : 'Unspecified' %>
+      </small></p>
+      <hr>
+      <% }) %>
+      <br>
+      <br>
     </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    <div class="modal-footer blue-grey darken-4" style="z-index: 2000">
+      <a href="#!" class="modal-close waves-effect waves-green teal accent-4 btn">Close</a>
     </div>
   </div>
 </div>

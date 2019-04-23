@@ -1,22 +1,24 @@
-<nav>
-  <div class="nav-wrapper blue-grey darken-4">
-    <a href="/" class="brand-logo"><i class="right pink-text fas fa-beer" style="font-size: 48px; margin-top: 5px; padding-left: 14px;"></i></a>
-    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons pink-text">menu</i></a>
-    <ul class="blue-grey darken-4 right hide-on-med-and-down">
-      <li><a href="/breweries" class="teal-text text-accent-3">Brewery Search</a></li>
-      <% if (!user) { %>
-        <li><a href="/auth/login" class="teal-text text-accent-3">Login</a></li>
-        <li><a href="/auth/signup" class="teal-text text-accent-3">Sign Up</a></li>
-      <% } else { %>
-        <% if (user.admin) { %>
-          <li><a href="/profile/admin" class="teal-text text-accent-3">Admin</a></li>
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper blue-grey darken-4">
+      <a href="/" class="brand-logo"><i class="right pink-text fas fa-beer" style="font-size: 48px; margin-top: 5px; padding-left: 14px;"></i></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons pink-text">menu</i></a>
+      <ul class="blue-grey darken-4 right hide-on-med-and-down">
+        <li><a href="/breweries" class="teal-text text-accent-3">Brewery Search</a></li>
+        <% if (!user) { %>
+          <li><a href="/auth/login" class="teal-text text-accent-3">Login</a></li>
+          <li><a href="/auth/signup" class="teal-text text-accent-3">Sign Up</a></li>
+        <% } else { %>
+          <% if (user.admin) { %>
+            <li><a href="/profile/admin" class="teal-text text-accent-3">Admin</a></li>
+          <% } %>
+          <li><a href="/profile" class="teal-text text-accent-3">Profile</a></li>
+          <li><a href="/auth/logout" class="teal-text text-accent-3">Logout</a></li>
         <% } %>
-        <li><a href="/profile" class="teal-text text-accent-3">Profile</a></li>
-        <li><a href="/auth/logout" class="teal-text text-accent-3">Logout</a></li>
-      <% } %>
-    </ul>
-  </div>
-</nav>
+      </ul>
+    </div>
+  </nav>
+</div>
 
 <ul class="sidenav blue-grey darken-3 teal-text text-accent-3" id="mobile-demo">
   <li class="blue-grey darken-4">Kevin</li>

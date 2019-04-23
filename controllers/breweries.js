@@ -9,14 +9,16 @@ let mapBoxClient = require('@mapbox/mapbox-sdk')
 let mapBoxGeocode = require('@mapbox/mapbox-sdk/services/geocoding')
 let router = express.Router()
 let db = require('../models')
+let loggedIn = require('../middleware/loggedIn')
+let results, results2, results3;
 
 // Give mapbox our key
 const mapBoxKey = process.env.MAPBOX_KEY
 const mb = mapBoxClient({ accessToken: mapBoxKey })
 const geocode = mapBoxGeocode(mb)
 
-let userLat = 39.4817
-let userLong = -106.0384
+let userLat = 38.2324
+let userLong = -122.6367
 
 router.get('/', (req, res) => {
 	res.render('breweries/index')	
@@ -42,6 +44,20 @@ router.post('/results', (req, res) => {
 	})
 })
 
+// POST /:id
+router.post('/:id', (req, res) => {
+	if(req.user){
+		// database writer to faves
+		console.log(req.body, req.user.id)
+		res.send('OKAY')
+	}
+	else {
+		console.log('faillll')
+		res.status(401).send('NOOOOOOOOO - unauthorized')
+	}
+		
+})
+
 // // GET /beers show beers for a specific brewery
 // router.get('/:brewery/beers', (req, res) => {
 	
@@ -61,22 +77,40 @@ router.get('/:id', (req, res) => {
 			res.send('ahh shit')
 		} else {
 			var breweryLocationsURL = process.env.API_URL_BREWERY + req.params.id + '/locations/?key=' + process.env.API_KEY
-			var results = JSON.parse(body)
-			locations(breweryLocationsURL, body, results, res)
+			results = JSON.parse(body)
+			locations(breweryLocationsURL, body, results, req, res)
 			console.log(breweryLocationsURL)
-			// res.render('breweries/show', { results: results.data })
 		}
 	})
 })
-let locations = (breweryLocationsURL, data, results, res) => {
+
+let locations = (breweryLocationsURL, data, results, req, res) => {
 	request(breweryLocationsURL, (error, response, body) => {
 		if (error) {
 			console.log('error: ', error)
 			// console.log('status code: ', response.statusCode)
 		} else {
-			var results2 = JSON.parse(body)
-			console.log(results2.data)
-			res.render('breweries/show', { results: results.data, results2: results2.data })
+			var breweryBeersURL = process.env.API_URL_BREWERY + req.params.id + '/beers/?key=' + process.env.API_KEY
+			results2 = JSON.parse(body)
+			// console.log(results2.data)
+			beers(breweryBeersURL, body, results, results2, res)
+		}
+	})	
+}
+
+let beers = (breweryBeersURL, data, results, results2, res) => {
+	request(breweryBeersURL, (error, response, body) => {
+		if (error) {
+			console.log('error: ', error)
+			// console.log('status code: ', response.statusCode)
+		} else {
+			results3 = JSON.parse(body)
+			// console.log(results3.data)
+			res.render('breweries/show', {
+				results: results.data,
+				results2: results2.data,
+				results3: results3.data
+			})
 		}
 	})	
 }
