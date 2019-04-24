@@ -1,22 +1,67 @@
-<br>
-<br>
-
 <div class="center-align">
-	<div class="row">
-		<div class="col s4">
-			<img class="responsive-img" src="<%= user.image %>" style="border-radius: 50%;">
-		</div>
-		<div class="col s8">
-			<h3 class="center teal-text text-accent-3">
-				<%= user.firstname %> <%= user.lastname%>
-			</h3>
-		</div>
+<br>
+<div class="row">
+	<a class="waves-effect waves-light btn pink" href="/breweries">Explore
+		<i class="right material-icons">map</i>
+	</a>		
+</div>	
+	<div class="col 12">
+		<div class="card blue-grey darken-2">
+			<div class="card-image">
+				<img src="<%= user.image %>" style="border-radius: ">
+			</div>
+			<div class="card-content">
+				<p class="card-title teal-text text-accent-3" style="text-transform: uppercase;">
+					<%= user.firstname %> <%= user.lastname%>
+				</p>
+				<br>
+				<hr>
+				<br>
+				<div class="row">
+					<a class="waves-effect waves-light btn modal-trigger pink" href="#modal1">My Saved Breweries
+						<i class="right material-icons">check</i>
+					</a>
+				</div>
+			</div>
 	</div>
 </div>
-<div class="row">
-	<div class="col s12 m4">
-		<p>About <%= user.firstname %>: <%= user.bio %></p>
-	</div>
+	<br>
+	<div id="modal1" class="modal bottom-sheet modal-fixed-footer" style="max-height: 100%; height: 100%; top: 0;">
+  	<div class="navbar-fixed">
+  		<nav class="pink">
+      	<h4 style="margin: 10px;">MY BREWERIES</h4>
+  		</nav>
+  	</div>
+	<div class="modal-content blue-grey darken-3 right-align">
+    <% breweries.forEach((b) => { %>
+	    <div class="row ">
+	    	<div class="col s5">
+	    		<img class="responsive-img" src="<%= b.imageUrl %>" style="border-radius: 50%;">
+				</div>
+		    <div class="col s7">
+			    <h6 class="teal-text text-accent-3">
+			    	<%= b.name %>
+			    </h6>
+			    <p>
+			    	<small>
+			  			Established: <%= b.established %>
+			    	</small>
+			  	</p>
+			  	<p>
+			  		<small>
+				    	<a href="<%= b. website %>" class="pink-text lighten-1"><%= b.website %></a>
+				    </small>
+				  </p>
+			  </div>
+			</div>
+			<hr>
+    <% }) %>
+  </div>
+  <br>
+  <br>
+  <div class="modal-footer blue-grey darken-4" style="z-index: 2000">
+    <a href="#!" class="modal-close waves-effect waves-green teal accent-4 btn">Close</a>
+  </div>
 </div>
 <a href="/profile/breweries">Saved Breweries</a>
 <a href="/profile/breweries/beers">Saved Beers</a>

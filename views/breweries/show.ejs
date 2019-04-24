@@ -58,10 +58,10 @@
 	        </span>
 	        <div class="card-action">
 	        	<br>
-						<a class="waves-effect waves-light btn modal-trigger pink" href="#modal1">Peruse the Brews
-							<i class="right fas fa-beer"></i>
-						</a>
-					</div>
+				<a class="waves-effect waves-light btn modal-trigger pink" href="#modal1">Peruse the Brews
+					<i class="right fas fa-beer"></i>
+				</a>
+			</div>
 	      </div>
       </div>
     </div>
@@ -83,7 +83,23 @@
       	 ~ IBU: <%= r.ibu %>
       	<% } %>
       	<a class="add-button btn-floating waves-effect waves-light pink right" 
-      	data-brewery-id="<%= results.id %>" data-beer-apiId="<%= r.id %>" data-beer-name="<%= r.name %>" data-beer-style="<%= r.style %>" data-beer-image="<%= r.labels ? r.labels.large : '' %>" data-beer-ibu="<%= r.ibu %>" data-beer-abv="<%= r.abv %> "data-beer-availability="<%= r.available ? r.available.name : '' %>"><i class="material-icons">add</i></a>
+	      	data-brewery-id="<%= results.id %>" 
+	      	data-brewery-name="<%= results.name %>" 
+	      	data-brewery-established="<%= results.established %>" 
+	      	data-brewery-imageUrl="<%= results.images ? results.images.squareMedium : 'https://www.placecage.com/c/300/300' %>" 
+	      	data-brewery-website="<%= results.website %>" 
+	      	data-brewery-description="<%= results.description %>" 
+	      	data-brewery-isInBusiness="<%= results.isInBusiness %>" 
+	      	data-brewery-status="<%= results.status %>" 
+	      	data-beer-apiId="<%= r.id %>" 
+	      	data-beer-name="<%= r.name %>" 
+	      	data-beer-style="<%= r.style ? r.style.shortName : 'unspecified' %>" 
+	      	data-beer-image="<%= r.labels ? r.labels.large : '' %>" 
+	      	data-beer-ibu="<%= r.ibu %>" 
+	      	data-beer-abv="<%= r.abv %>" 
+	      	data-beer-availability="<%= r.available ? r.available.name : '' %>">
+	      	<i class="material-icons">add</i>
+	      </a>
       </small>
     	</p>
     	<p><small>

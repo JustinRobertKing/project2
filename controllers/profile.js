@@ -13,7 +13,13 @@ let loggedIn = require('../middleware/loggedIn')
 
 // Declare routs
 router.get('/', loggedIn, (req, res) => {
-	res.render('profile/index')
+	db.brewery.findAll({
+		where: { userId: req.user.id },
+		include: [db.beer]
+	})
+	.then((breweries) => {
+		res.render('profile/index', { breweries: breweries })
+	})
 })
 
 // GET /profile/breweries

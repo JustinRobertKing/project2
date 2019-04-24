@@ -20,12 +20,6 @@ module.exports = {
       imageUrl: {
         type: Sequelize.STRING
       },
-      long: {
-        type: Sequelize.DECIMAL
-      },
-      lat: {
-        type: Sequelize.DECIMAL
-      },
       website: {
         type: Sequelize.STRING
       },

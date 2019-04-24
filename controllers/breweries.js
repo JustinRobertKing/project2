@@ -36,9 +36,7 @@ router.post('/results', (req, res) => {
 			console.log('status code: ', response.statusCode)
 			res.send('ahh shit')
 		} else {
-			// Cool - we probably have some results
 			var results = JSON.parse(body)
-			// console.log(results)
 			res.render('breweries/results', { results: results })
 		}
 	})
@@ -46,10 +44,51 @@ router.post('/results', (req, res) => {
 
 // POST /:id
 router.post('/:id', (req, res) => {
-	if(req.user){
+	if (req.user) {
 		// database writer to faves
-		console.log(req.body, req.user.id)
-		res.send('OKAY')
+		db.brewery.findOrCreate({
+			where: { 
+				apiId: req.body.breweryApiId, 
+				userId: req.user.id
+			},
+			defaults: {
+				apiId: req.body.breweryApiId,
+		      	name: req.body.breweryName,
+		      	established: req.body.established, 
+		      	imageUrl: req.body.breweryImageUrl, 
+		      	website: req.body.website,
+		      	description: req.body.description, 
+		      	isInBusiness: req.body.isInBusiness,
+		      	status: req.body.status,
+		      	userId: req.user.id
+			}
+		})
+		.spread((butts, wasCreated) => {
+			console.log('butts', butts, wasCreated)
+			db.beer.findOrCreate({
+				where: {
+					name: req.body.name,
+					userId: req.user.id
+				},
+				defaults: {
+					apiId: req.body.apiId,
+					breweryId: req.body.breweryId,
+					name: req.body.name,
+					style: req.body.style,
+					imageUrl: req.body.imageUrl,
+					ibu: req.body.ibu ? parseInt(req.body.ibu) : null,
+					abv: req.body.abv ? parseInt(req.body.abv) : null,
+					availability: req.body.availability,
+					breweryId: butts.id,
+					userId: req.user.id
+				}
+			})
+			.spread((balls, wasCreated) => {
+				console.log('balls', balls, wasCreated)
+				res.status(200).send('success')
+			})
+		})
+		// console.log(req.body, req.user.id)
 	}
 	else {
 		console.log('faillll')

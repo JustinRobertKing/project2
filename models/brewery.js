@@ -5,8 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     established: DataTypes.STRING,
     imageUrl: DataTypes.STRING,
-    long: DataTypes.DECIMAL,
-    lat: DataTypes.DECIMAL,
     website: DataTypes.STRING,
     description: DataTypes.TEXT,
     isInBusiness: DataTypes.BOOLEAN,
@@ -15,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   brewery.associate = function(models) {
     // associations can be defined here
+    models.brewery.hasMany(models.beer)
   };
   return brewery;
 };
