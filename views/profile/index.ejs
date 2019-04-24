@@ -14,11 +14,11 @@
 				<p class="card-title teal-text text-accent-3" style="text-transform: uppercase;">
 					<%= user.firstname %> <%= user.lastname%>
 				</p>
-				<br>
+				<p class="center-align">Breweries Saved : <span class="teal-text text-accent-3"><%= breweries.length %></span></p>
 				<hr>
 				<br>
 				<div class="row">
-					<a class="waves-effect waves-light btn modal-trigger pink" href="#modal1">My Saved Breweries
+					<a class="waves-effect waves-light btn modal-trigger pink" href="#modal">My Saved Breweries
 						<i class="right material-icons">check</i>
 					</a>
 				</div>
@@ -26,42 +26,81 @@
 	</div>
 </div>
 	<br>
-	<div id="modal1" class="modal bottom-sheet modal-fixed-footer" style="max-height: 100%; height: 100%; top: 0;">
+	<div id="modal" class="modal bottom-sheet modal-fixed-footer" style="max-height: 100%; height: 100%; top: 0;">
   	<div class="navbar-fixed">
   		<nav class="pink">
       	<h4 style="margin: 10px;">MY BREWERIES</h4>
   		</nav>
   	</div>
-	<div class="modal-content blue-grey darken-3 right-align">
-    <% breweries.forEach((b) => { %>
-	    <div class="row ">
-	    	<div class="col s5">
-	    		<img class="responsive-img" src="<%= b.imageUrl %>" style="border-radius: 50%;">
-				</div>
-		    <div class="col s7">
-			    <h6 class="teal-text text-accent-3">
+	<div class="modal-content blue-grey darken-3">
+    <% breweries.forEach((b, i) => { %>
+	    <a class="modal-trigger white-text" href="#modal<%= i %>">
+		    <div class="row ">
+		    	<h5 class="teal-text text-accent-3">
 			    	<%= b.name %>
-			    </h6>
-			    <p>
-			    	<small>
-			  			Established: <%= b.established %>
-			    	</small>
-			  	</p>
-			  	<p>
-			  		<small>
-				    	<a href="<%= b. website %>" class="pink-text lighten-1"><%= b.website %></a>
-				    </small>
-				  </p>
+			    </h5>
+		    	<div class="col s5 left-align">
+		    		<img class="responsive-img" src="<%= b.imageUrl %>" style="border-radius: 50%;">
+					</div>
+			    <div class="col s7 right-align" style="line-height: 1.2;">
+			    	<br>
+				    <p>
+			  			Established: <span class="teal-text text-accent-3"><%= b.established ? b.established : '???' %></span>
+				  	</p>
+				  	<p>
+					    Beers saved: <span class="teal-text text-accent-3"><%= b.beers.length %></span>
+					  </p>
+					  <a href="<%= b.website %>" class="pink-text lighten-1"><%= b.website%></a>
+				  </div>
+				</div>
+			</a>
+			<div id="modal<%= i %>" class="modal blue-grey darken-3 modal-fixed-footer" style="max-height: 90%; height: 90%; top: 5% !important; bottom: 10%; line-height: 1.2; z-index: 4000">
+		    <div class="navbar-fixed">
+		    	<nav class="teal accent-4">
+			     	<h4 style="margin: 10px;">SAVED BEERS</h4>
+		    	</nav>
+		   	</div>
+		   	<div class="modal-content blue-grey darken-3 left-align" style="line-height: 1.2">
+	      	<% b.beers.forEach((r) => { %>
+		      	<div class="row">
+				      <h6 class="teal-text text-accent-3 center-align">
+				      	<%= r.name %>
+				      </h6>
+				      <div class="col s8 left-align">
+				      	<br>
+					      <p><small>
+					      	ABV: <%= r.abv %>%
+					      	<% if (r.ibu) { %>
+					      	 ~ IBU: <%= r.ibu %>
+					      	<% } %>
+					      </small>
+					    	</p>
+					    	<p><small>
+					      	Style: <%= r.style %>
+					      </small></p>
+					    </div>
+					    <div class="col s4 right left-align">
+					    	<br>
+					    	<img src="<%= r.imageUrl %>" class="responsive-img">
+					    </div>
+				    </div>
+			      <hr>
+			      <% }) %>
+			      <br>
+			      <br>
+				  </div>
+			    <div class="modal-footer blue-grey darken-4">
+			      <a href="#!" class="modal-close waves-effect waves-green btn-flat pink white-text">Close</a>
+			    </div>
 			  </div>
-			</div>
 			<hr>
+			<br>
+			<br>
     <% }) %>
   </div>
   <br>
   <br>
-  <div class="modal-footer blue-grey darken-4" style="z-index: 2000">
+  <div class="modal-footer blue-grey darken-4">
     <a href="#!" class="modal-close waves-effect waves-green teal accent-4 btn">Close</a>
   </div>
 </div>
-<a href="/profile/breweries">Saved Breweries</a>
-<a href="/profile/breweries/beers">Saved Beers</a>

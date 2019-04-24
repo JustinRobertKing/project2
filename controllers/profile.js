@@ -18,6 +18,7 @@ router.get('/', loggedIn, (req, res) => {
 		include: [db.beer]
 	})
 	.then((breweries) => {
+		console.log(breweries)
 		res.render('profile/index', { breweries: breweries })
 	})
 })

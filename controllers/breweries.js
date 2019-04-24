@@ -17,15 +17,17 @@ const mapBoxKey = process.env.MAPBOX_KEY
 const mb = mapBoxClient({ accessToken: mapBoxKey })
 const geocode = mapBoxGeocode(mb)
 
-let userLat = 38.2324
-let userLong = -122.6367
+let userLat = 47.2529
+let userLong = -122.4443
 
 router.get('/', (req, res) => {
 	res.render('breweries/index')	
 })
 
 router.post('/results', (req, res) => {
-	// console.log(req.body.lat, req.body.lng)
+	console.log(req.body.lat, req.body.lng)
+	// userLat = req.body.lat
+	// userLong = req.body.lng
 	var url = process.env.API_URL_GEO + 'lat=' + userLat + '&lng=' + userLong + '&key=' + process.env.API_KEY
 	// console.log(url)
 	var results = []
@@ -64,6 +66,11 @@ router.post('/:id', (req, res) => {
 			}
 		})
 		.spread((butts, wasCreated) => {
+			if (!db.beer.findAll({where: { breweryId: butts.id }})) {
+				console.log('butts', butts, wasCreated)
+				res.status(200).send('success')
+				return
+			}
 			console.log('butts', butts, wasCreated)
 			db.beer.findOrCreate({
 				where: {
@@ -96,13 +103,6 @@ router.post('/:id', (req, res) => {
 	}
 		
 })
-
-// // GET /beers show beers for a specific brewery
-// router.get('/:brewery/beers', (req, res) => {
-	
-// })
-
-// GET /:brewery/beers/:id
 
 // GET /:id show a specific brewery
 router.get('/:id', (req, res) => {
@@ -153,7 +153,6 @@ let beers = (breweryBeersURL, data, results, results2, res) => {
 		}
 	})	
 }
-
 
 // Export the routes from this file
 module.exports = router

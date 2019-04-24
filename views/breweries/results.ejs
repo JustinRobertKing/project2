@@ -5,13 +5,10 @@
       <div class="col s12">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text center-align" style="line-height: 1.2;">
-            <span class="card-title teal-text text-accent-3" style="font-size: 1.5em;"><strong><%= r.name %></strong></span>
+            <span class="card-title teal-text text-accent-3" style="font-size: 1.5em;"><strong><%= r.brewery.name %></strong></span>
             <br>
             <p>
               <%= r.phone %>
-            </p>
-            <p>
-              <a href="<%= r.website %>" class="pink-text text-lighten-1"><%= r.website%></a>
             </p>
             <hr>
             <p><i class="material-icons">directions_walk</i> <%= r.distance %> miles away</p>
@@ -25,7 +22,7 @@
           </div>
           <div class="card-action center-align">
             <form method="GET" action="/breweries/<%= r.brewery.id %>">
-              <input type="hidden" name="brewery" value="<%= r.brewery.id %>">
+              <input type="hidden" name="breweryId" value="<%= r.brewery.id %>">
               <button class="btn waves-effect waves-light pink" type="submit">About this Brewery
                 <i class="material-icons right">info_outline</i>
               </button>        

@@ -5,43 +5,53 @@
       <div class="card blue-grey darken-2">
         <div class="card-image blue-grey darken-2">
           <img src="<%= results.images.squareMedium %>">
-          <a class="btn-floating halfway-fab waves-effect waves-light pink"><i class="material-icons">add</i></a>
+          <a id="add-brewery" class="btn-floating halfway-fab waves-effect waves-light pink"
+          	data-brewery-id="<%= results.id %>" 
+	      	data-brewery-name="<%= results.name %>" 
+	      	data-brewery-established="<%= results.established %>" 
+	      	data-brewery-imageUrl="<%= results.images ? results.images.squareMedium : 'https://www.placecage.com/c/300/300' %>" 
+	      	data-brewery-website="<%= results.website %>" 
+	      	data-brewery-description="<%= results.description %>" 
+	      	data-brewery-isInBusiness="<%= results.isInBusiness %>" 
+	      	data-brewery-status="<%= results.status %>">
+	      	<i class="material-icons">add</i>
+	      </a>
         </div>
         <div class="card-content">
 	        <h5 class="teal-text text-accent-3"><%= results.name %></h5>
 	        <br>
 	        <a class="waves-effect waves-light btn modal-trigger pink" href="#modal2">Locations</a>
 	        <br>
-				  <div id="modal2" class="modal blue-grey darken-3 modal-fixed-footer" style="max-height: 90%; height: 90%; top: 5% !important; bottom: 10%; line-height: 1.2">
-			      <div class="navbar-fixed">
-			    		<nav class="teal accent-4">
-				      	<h4 style="margin: 10px;">LOCATIONS</h4>
-			    		</nav>
-			    	</div>
-				    <div class="modal-content">
-				      <% results2.forEach((r) => { %>
-						    <div class="col s12">
-						      <div class="card blue-grey darken-2">
-						        <div class="card-content white-text blue-grey darken-2">
-						          <span class="card-title teal-text text-accent-3" style="font-size: 1.2em; line-height: 1.2;"><strong><%= r.name %></strong></span>
-						          <br>
-						          <p>
-							          <small><%= r.phone%></small>
-							        </p>
-							        <p>
-							          <a href="<%= r.website %>" class="pink-text text-lighten-1"><small><%= r.website%></small></a>
-						          </p>
-						          <hr>
-						          <p>
-							          <small><%= r.streetAddress%></small>
-							        </p>
-							        <p>
-							          <small><%= r.locality%>, <%= r.region%> <%= r.postalCode%></small>
-						          </p>
-						        </div>
-						      </div>
-						    </div>
-							<% }) %>
+			  <div id="modal2" class="modal blue-grey darken-3 modal-fixed-footer" style="max-height: 90%; height: 90%; top: 5% !important; bottom: 10%; line-height: 1.2">
+		      <div class="navbar-fixed">
+	    		<nav class="teal accent-4">
+		      		<h4 style="margin: 10px;">LOCATIONS</h4>
+	    		</nav>
+		    	</div>
+			    <div class="modal-content">
+			      <% results2.forEach((r) => { %>
+					    <div class="col s12">
+					      <div class="card blue-grey darken-2">
+					        <div class="card-content white-text blue-grey darken-2">
+					          <span class="card-title teal-text text-accent-3" style="font-size: 1.2em; line-height: 1.2;"><strong><%= r.name %></strong></span>
+					          <br>
+					          <p>
+						          <small><%= r.phone%></small>
+						        </p>
+						        <p>
+						          <a href="<%= r.website %>" class="pink-text text-lighten-1"><small><%= r.website%></small></a>
+					          </p>
+					          <hr>
+					          <p>
+						          <small><%= r.streetAddress%></small>
+						        </p>
+						        <p>
+						          <small><%= r.locality%>, <%= r.region%> <%= r.postalCode%></small>
+					          </p>
+					        </div>
+					      </div>
+					    </div>
+						<% }) %>
 				    </div>
 				    <br>
 				    <br>
