@@ -62,7 +62,7 @@
 				  </div>	
 	        <br>
 	      	<hr>
-	      	<p><a class="pink-text text-lighten-1" href="<%= results.website %>"><%= results.website %></a></p>
+	      	<p><a class="pink-text text-lighten-1" href="<%= results.website %>">Visit Website</a></p>
 	      	<hr>
 	        <span class="white-text"><small><%= results.description %></small>
 	        </span>
@@ -83,40 +83,45 @@
     		</nav>
     	</div>
     <div class="modal-content blue-grey darken-3 left-align">
-      <% results3.forEach((r) => { %>
-      <h6 class="teal-text text-accent-3">
-      	<%= r.name %>
-      </h6>
-      <p><small>
-      	ABV: <%= r.abv %>%
-      	<% if (r.ibu) { %>
-      	 ~ IBU: <%= r.ibu %>
-      	<% } %>
-      	<a class="add-button btn-floating waves-effect waves-light pink right" 
-	      	data-brewery-id="<%= results.id %>" 
-	      	data-brewery-name="<%= results.name %>" 
-	      	data-brewery-established="<%= results.established %>" 
-	      	data-brewery-imageUrl="<%= results.images ? results.images.squareMedium : 'https://www.placecage.com/c/300/300' %>" 
-	      	data-brewery-website="<%= results.website %>" 
-	      	data-brewery-description="<%= results.description %>" 
-	      	data-brewery-isInBusiness="<%= results.isInBusiness %>" 
-	      	data-brewery-status="<%= results.status %>" 
-	      	data-beer-apiId="<%= r.id %>" 
-	      	data-beer-name="<%= r.name %>" 
-	      	data-beer-style="<%= r.style ? r.style.shortName : 'unspecified' %>" 
-	      	data-beer-image="<%= r.labels ? r.labels.large : '' %>" 
-	      	data-beer-ibu="<%= r.ibu %>" 
-	      	data-beer-abv="<%= r.abv %>" 
-	      	data-beer-availability="<%= r.available ? r.available.name : '' %>">
-	      	<i class="material-icons">add</i>
-	      </a>
-      </small>
-    	</p>
-    	<p><small>
-      	Style: <%= r.style ? r.style.shortName : 'Unspecified' %>
-      </small></p>
-      <hr>
-      <% }) %>
+    	<% if (results3) { %> 
+	      <% results3.forEach((r) => { %>
+	      <h6 class="teal-text text-accent-3">
+	      	<%= r.name %>
+	      </h6>
+	      <p><small>
+	      	ABV: <%= r.abv %>%
+	      	<% if (r.ibu) { %>
+	      	 ~ IBU: <%= r.ibu %>
+	      	<% } %>
+	      	<a class="add-button btn-floating waves-effect waves-light pink right" 
+		      	data-brewery-id="<%= results.id %>" 
+		      	data-brewery-name="<%= results.name %>" 
+		      	data-brewery-established="<%= results.established %>" 
+		      	data-brewery-imageUrl="<%= results.images ? results.images.squareMedium : 'https://www.placecage.com/c/300/300' %>" 
+		      	data-brewery-website="<%= results.website %>" 
+		      	data-brewery-description="<%= results.description %>" 
+		      	data-brewery-isInBusiness="<%= results.isInBusiness %>" 
+		      	data-brewery-status="<%= results.status %>" 
+		      	data-beer-apiId="<%= r.id %>" 
+		      	data-beer-name="<%= r.name %>" 
+		      	data-beer-style="<%= r.style ? r.style.shortName : 'unspecified' %>" 
+		      	data-beer-image="<%= r.labels ? r.labels.large : '' %>" 
+		      	data-beer-ibu="<%= r.ibu %>" 
+		      	data-beer-abv="<%= r.abv %>" 
+		      	data-beer-availability="<%= r.available ? r.available.name : '' %>">
+		      	<i class="material-icons">add</i>
+		      </a>
+	      </small>
+	    	</p>
+	    	<p><small>
+	      	Style: <%= r.style ? r.style.shortName : 'Unspecified' %>
+	      </small></p>
+	      <hr>
+	      <% }) %>
+	    <% } else { %>
+	    	<h3 class="teal-text text-accent-3">Whomp Whomp</h3>
+	    	<p>No beer info at this time</p>
+	    <% } %>
       <br>
       <br>
     </div>

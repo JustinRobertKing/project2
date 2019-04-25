@@ -5,6 +5,7 @@ require('dotenv').config()
 let express = require('express')
 let flash = require('connect-flash')
 let layouts = require('express-ejs-layouts')
+let methodOverride = require('method-override')
 let session = require('express-session')
 
 // Include passport configuration
@@ -15,6 +16,7 @@ let app = express()
 
 // Set view engine
 app.set('view engine', 'ejs')
+app.use(methodOverride('_method'))
 
 // Include (use) middleware
 app.use('/', express.static('static'))

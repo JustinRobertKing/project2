@@ -144,7 +144,7 @@ let beers = (breweryBeersURL, data, results, results2, res) => {
 			// console.log('status code: ', response.statusCode)
 		} else {
 			results3 = JSON.parse(body)
-			// console.log(results3.data)
+			console.log(results3)
 			res.render('breweries/show', {
 				results: results.data,
 				results2: results2.data,

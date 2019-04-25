@@ -7,14 +7,69 @@
 </div>	
 	<div class="col 12">
 		<div class="card blue-grey darken-2">
-			<div class="card-image">
-				<img src="<%= user.image %>" style="border-radius: ">
-			</div>
 			<div class="card-content">
-				<p class="card-title teal-text text-accent-3" style="text-transform: uppercase;">
+				<p class="card-title teal-text text-accent-3" style="text-transform: uppercase; font-size: 36px;">
 					<%= user.firstname %> <%= user.lastname%>
 				</p>
-				<p class="center-align">Breweries Saved : <span class="teal-text text-accent-3"><%= breweries.length %></span></p>
+				<div class="card-image">
+					<img src="<%= user.image %>" style="width: 200px; height: 200px; margin: auto; border-radius: 50%;">
+				</div>
+				<br>
+				<h6>Breweries Saved: 
+					<span class="teal-text text-accent-3"><%= breweries.length %></span>
+				</h6>
+				<h6>Rank: 
+					<span class="teal-text text-accent-3">
+						<% if (breweries.length < 5) { %>
+						 Newb
+						<% } else if (breweries.length < 10) { %>
+						 Undergrad
+						<% } else if (breweries.length < 20) { %>
+						 Soccer Fan
+						<% } else if (breweries.length < 35) { %>
+						 Opinion Journalist
+						<% } else if (breweries.length < 55) { %>
+						 Church Youth Leader
+						<% } else if (breweries.length < 80) { %>
+						 Favorite Uncle
+						<% } else if (breweries.length < 150) { %>
+						 Rugby Player
+						<% } else { %>
+						 Kind of a Dick
+						<% } %>
+					</span>
+				</h6>
+				<br>
+				<hr>
+
+				<a class="right align modal-trigger btn-floating waves-effect waves-light teal accent-4" href="#modalE">
+      		<i class="material-icons">edit</i>
+      	</a>
+      	<br>
+				<h6 class="left-align">About Me: </h6>
+				<div id="modalE" class="modal blue-grey darken-3 modal-fixed-footer" style="max-height: 90%; height: 90%; top: 5% !important; bottom: 10%; line-height: 1.2">
+		      <div class="navbar-fixed">
+	    		<nav class="teal accent-4">
+		      		<h4 style="margin: 10px;">UPDATE BIO</h4>
+	    		</nav>
+		    	</div>
+					<form class="col s12" method="POST" action="/profile/?_method=PUT">
+			    	<div class="modal-content">
+							<div class="row">
+								<div class="input-field col s12">
+									<textarea id="bio" name="bio" autofocus class="materialize-textarea white-text"><%= user.bio %></textarea>
+									<label for="bio">User Bio</label>
+								</div>
+							</div>
+				  	</div>
+						<div class="modal-footer blue-grey darken-4">
+				      <button class="modal-close waves-effect waves-green btn-flat pink white-text" type="submit">Update</button>
+				    </div>
+					</form>
+			  </div>
+				<p class="left-align" style="text-align: justify">
+					<small>&nbsp; &nbsp; &nbsp;<%= user.bio %></small>
+				</p>
 				<hr>
 				<br>
 				<div class="row">
@@ -50,11 +105,11 @@
 				  	<p>
 					    Beers saved: <span class="teal-text text-accent-3"><%= b.beers.length %></span>
 					  </p>
-					  <a href="<%= b.website %>" class="pink-text lighten-1"><%= b.website%></a>
+					  <a href="<%= b.website %>" class="pink-text lighten-1">Visit Website</a>
 				  </div>
 				</div>
 			</a>
-			<div id="modal<%= i %>" class="modal blue-grey darken-3 modal-fixed-footer" style="max-height: 90%; height: 90%; top: 5% !important; bottom: 10%; line-height: 1.2; z-index: 4000">
+			<div id="modal<%= i %>" class="modal blue-grey darken-3 modal-fixed-footer" style="max-height: 90%; height: 90%; top: 5% !important; bottom: 10%; line-height: 1.2; z-index: 4000;">
 		    <div class="navbar-fixed">
 		    	<nav class="teal accent-4">
 			     	<h4 style="margin: 10px;">SAVED BEERS</h4>
@@ -104,3 +159,6 @@
     <a href="#!" class="modal-close waves-effect waves-green teal accent-4 btn">Close</a>
   </div>
 </div>
+<script type="text/javascript">
+	window.onload = document.getElementById('bio').select();
+</script>
