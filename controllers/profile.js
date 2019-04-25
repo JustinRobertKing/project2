@@ -29,8 +29,15 @@ router.get('/admin', adminLoggedIn, (req, res) => {
 })
 
 // PUT /profile edit your bio
-router.put('/profile', (req,res) => {
-	res.redirect('/profile')
+router.put('/', (req,res) => {
+	db.user.update({
+		bio: req.body.bio
+	}, {
+		where: { id: req.user.id }
+	})
+	.then((updatedUser) => {
+		res.redirect('/profile')
+	})
 })
 
 // Export the routes from this file
