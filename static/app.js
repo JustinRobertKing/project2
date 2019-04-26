@@ -4,9 +4,10 @@ document.addEventListener('DOMContentLoaded', e => {
 			e.preventDefault()
 			this.className = 'btn-floating waves-effect waves-light teal accent-4 right'
 			$(this).find('i:first').text('check')
+			console.log('GOT HERE; MAKING CALL ')
 			// fetch or ajax
 			$.ajax({
-				url: 'http://localhost:3000/breweries/' + this.getAttribute('data-id'),
+				url: 'https://beer-savor.herokuapp.com/breweries/' + this.getAttribute('data-id'),
 				method: 'POST',
 				data: {
 					breweryApiId: this.getAttribute('data-brewery-id'), 
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		$(this).find('i:first').text('check')
 		// fetch or ajax
 		$.ajax({
-			url: 'http://localhost:3000/breweries/' + this.getAttribute('data-id'),
+			url: 'https://beer-savor.herokuapp.com/breweries/' + this.getAttribute('data-id'),
 			method: 'POST',
 			data: {
 				breweryApiId: this.getAttribute('data-brewery-id'), 
