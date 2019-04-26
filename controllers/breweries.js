@@ -40,21 +40,21 @@ router.post('/results', (req, res) => {
 			res.send('ahh shit')
 		} else {
 			var results = JSON.parse(body)
-			let markers = results.data.map((brewery) => {
+			let markers = results.data.map((b) => {
 				let markerObj = {
 					"type": "Feature",
 					"geometry": {
 						"type": "Point",
-						"coordinates": [brewery.long, brewery.lat]
+						"coordinates": [b.longitude, b.latitude]
 					},
 					"properties": {
-						"title": brewery.name,
-						"icon": "airport"
+						"title": b.brewery.nameShortDisplay,
+						"icon": "beer"
 					}
 				}
 				return JSON.stringify(markerObj)
 			})
-			res.render('breweries/results', { results: results, mapkey: mapBoxKey, markers })
+			res.render('breweries/results', { results: results, mapkey: mapBoxKey, markers, userLong, userLat})
 		}
 	})
 })
