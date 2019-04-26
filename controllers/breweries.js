@@ -28,6 +28,7 @@ router.post('/results', (req, res) => {
 	console.log(req.body.lat, req.body.lng)
 	// userLat = req.body.lat
 	// userLong = req.body.lng
+
 	var url = process.env.API_URL_GEO + 'lat=' + userLat + '&lng=' + userLong + '&key=' + process.env.API_KEY
 	// console.log(url)
 	var results = []
@@ -39,7 +40,22 @@ router.post('/results', (req, res) => {
 			res.send('ahh shit')
 		} else {
 			var results = JSON.parse(body)
-			res.render('breweries/results', { results: results })
+			let markers = results.data.map((brewery) => {
+				let markerObj = {
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [brewery.long, brewery.lat]
+					},
+					"properties": {
+						"title": brewery.name,
+						"icon": "airport"
+					}
+				}
+				return JSON.stringify(markerObj)
+			})
+			console.log(mapBoxKey)
+			res.render('breweries/results', { results: results, mapkey: mapBoxKey, markers })
 		}
 	})
 })
@@ -148,11 +164,33 @@ let beers = (breweryBeersURL, data, results, results2, res) => {
 			res.render('breweries/show', {
 				results: results.data,
 				results2: results2.data,
-				results3: results3.data
+				results3: results3.data,
 			})
 		}
 	})	
 }
+
+// .then((faves) => {
+// 		// TODO create an array of geojson data
+// 		let markers = faves.map((city) => {
+// 			let markerObj = {
+// 				"type": "Feature",
+// 				"geometry": {
+// 					"type": "Point",
+// 					"coordinates": [city.long, city.lat]
+// 				},
+// 				"properties": {
+// 					"title": city.name,
+// 					"icon": "airport"
+// 				}
+// 			}
+// 			return JSON.stringify(markerObj)
+// 		})
+// 		res.render('cities/faves', { faves, mapkey: mapBoxKey, markers })
+// 	})
+// 	.catch((error) => {
+// 		console.log('error', error)
+// 	})
 
 // Export the routes from this file
 module.exports = router

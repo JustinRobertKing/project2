@@ -1,32 +1,7 @@
-<h1>HOME</h1>
+<div class="center-align">
+  <h2 class="teal-text text-accent-3">BEER SAVOR</h2>
 
-<p>Click the button to get your coordinates.</p>
+  <h5>Welcome to Beer Savor!</h5>
+  <h6>Your new favorite beer discovery app</h6>
 
-<button onclick="getLocation()">Try It</button>
-
-<p id="demo"></p>
-
-<form method="POST" action="/breweries/results">
-	<input type="hidden" id="lat" name="lat" value="39.4817">
-	<input type="hidden" id="lng" name="lng" value="-106.0384">
-	<button class="btn waves-effect waves-light pink" type="submit">Submit
-		<i class="material-icons right">send</i>
-	</button>
-</form>
-<script>
-var lat = document.getElementById("lat");
-var lng = document.getElementById("lng");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(loadPosition);
-  } else { 
-    console.log('Geolocation is not supported by this browser.')
-  }
-}
-
-function loadPosition(position) {
-  lat.value = position.coords.latitude
-  lng.value = position.coords.longitude
-}
-</script>
+</div>

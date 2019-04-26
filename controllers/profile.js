@@ -21,6 +21,9 @@ router.get('/', loggedIn, (req, res) => {
 		console.log(breweries)
 		res.render('profile/index', { breweries: breweries })
 	})
+	.catch((error) => {
+		console.log('error', error)
+	})
 })
 
 // GET /profile/admin
@@ -37,6 +40,19 @@ router.put('/', (req,res) => {
 	})
 	.then((updatedUser) => {
 		res.redirect('/profile')
+	})
+	.catch((error) => {
+		console.log('error', error)
+	})
+})
+
+router.delete('/', (req, res) => {
+	db.beer.destroy({ where: { id: req.body.id }})
+	.then((deletedBeer) => {
+		res.redirect('/profile')
+	})
+	.catch((error) => {
+		console.log('error', error)
 	})
 })
 

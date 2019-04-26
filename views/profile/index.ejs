@@ -41,17 +41,17 @@
 				</h6>
 				<br>
 				<hr>
-
-				<a class="right align modal-trigger btn-floating waves-effect waves-light teal accent-4" href="#modalE">
-      		<i class="material-icons">edit</i>
-      	</a>
-      	<br>
+				<div>
+					<a class="btn-floating btn-small right modal-trigger waves-effect waves-light teal accent-4" href="#modalE">
+	      		<i class="material-icons">edit</i>
+	      	</a>
+	      </div>
 				<h6 class="left-align">About Me: </h6>
 				<div id="modalE" class="modal blue-grey darken-3 modal-fixed-footer" style="max-height: 90%; height: 90%; top: 5% !important; bottom: 10%; line-height: 1.2">
 		      <div class="navbar-fixed">
-	    		<nav class="teal accent-4">
-		      		<h4 style="margin: 10px;">UPDATE BIO</h4>
-	    		</nav>
+		    		<nav class="teal accent-4">
+			      		<h4 style="margin: 10px;">UPDATE BIO</h4>
+		    		</nav>
 		    	</div>
 					<form class="col s12" method="POST" action="/profile/?_method=PUT">
 			    	<div class="modal-content">
@@ -67,9 +67,8 @@
 				    </div>
 					</form>
 			  </div>
-				<p class="left-align" style="text-align: justify">
-					<small>&nbsp; &nbsp; &nbsp;<%= user.bio %></small>
-				</p>
+			  <br>
+				<p class="left-align" style="text-align: justify">&nbsp; &nbsp; &nbsp;<%= user.bio %></p>
 				<hr>
 				<br>
 				<div class="row">
@@ -89,16 +88,19 @@
   	</div>
 	<div class="modal-content blue-grey darken-3">
     <% breweries.forEach((b, i) => { %>
-	    <a class="modal-trigger white-text" href="#modal<%= i %>">
-		    <div class="row ">
-		    	<h5 class="teal-text text-accent-3">
+	    <div class="row">
+	    	<form method="POST" action="/profile/?_method=DELETE">
+	    		<button type="submit" name="<%= b.name %>" class="btn-floating btn-small right waves-effect waves-light pink"><i class="material-icons white-text" style="border-radius: 50%; padding: 0">close</i></button>
+			    <label></label>
+	    	</form>
+		    <a class="modal-trigger white-text" href="#modal<%= i %>">
+		    	<h5 class="left-align teal-text text-accent-3">
 			    	<%= b.name %>
 			    </h5>
 		    	<div class="col s5 left-align">
 		    		<img class="responsive-img" src="<%= b.imageUrl %>" style="border-radius: 50%;">
 					</div>
 			    <div class="col s7 right-align" style="line-height: 1.2;">
-			    	<br>
 				    <p>
 			  			Established: <span class="teal-text text-accent-3"><%= b.established ? b.established : '???' %></span>
 				  	</p>
@@ -107,8 +109,8 @@
 					  </p>
 					  <a href="<%= b.website %>" class="pink-text lighten-1">Visit Website</a>
 				  </div>
-				</div>
-			</a>
+				</a>
+			</div>
 			<div id="modal<%= i %>" class="modal blue-grey darken-3 modal-fixed-footer" style="max-height: 90%; height: 90%; top: 5% !important; bottom: 10%; line-height: 1.2; z-index: 4000;">
 		    <div class="navbar-fixed">
 		    	<nav class="teal accent-4">
@@ -118,23 +120,46 @@
 		   	<div class="modal-content blue-grey darken-3 left-align" style="line-height: 1.2">
 	      	<% b.beers.forEach((r) => { %>
 		      	<div class="row">
-				      <h6 class="teal-text text-accent-3 center-align">
+		      		<form method="POST" action="/profile/?_method=DELETE">
+		      			<input type="hidden" name="id" value="<%= r.id %>">
+				    		<button type="submit" class="btn-floating btn-small right waves-effect waves-light pink"><i class="material-icons white-text" style="border-radius: 50%; padding: 0">close</i></button>
+						    <label></label>
+				    	</form>
+				      <h6 class="teal-text text-accent-3 left-align">
 				      	<%= r.name %>
 				      </h6>
-				      <div class="col s8 left-align">
+				      <div class="col s7 left-align">
 				      	<br>
-					      <p><small>
-					      	ABV: <%= r.abv %>%
-					      	<% if (r.ibu) { %>
-					      	 ~ IBU: <%= r.ibu %>
-					      	<% } %>
-					      </small>
-					    	</p>
-					    	<p><small>
-					      	Style: <%= r.style %>
-					      </small></p>
+				      	<ul>
+						      <li>
+						      	<small>
+						      		<% if (r.abv) { %>
+							      		ABV: <%= r.abv %>%
+							      	<% } %>
+						      	</small>
+						      </li>
+						      <li>
+						      	<small>
+							      	<% if (r.ibu) { %>
+							      		IBU: <%= r.ibu %>
+							      	<% } %>
+						      	</small>
+						      </li>
+						      <li>
+							    	<small>
+							      	Style: <%= r.style %>
+							      </small>
+							    </li>	
+							    <li>
+							    	<small>
+							    		<% if (r.availability) { %>
+							    			Availability: <%= r.availability %>
+							    		<% } %>
+							    	</small>
+							    </li>
+				      	</ul>
 					    </div>
-					    <div class="col s4 right left-align">
+					    <div class="col s5 right left-align">
 					    	<br>
 					    	<img src="<%= r.imageUrl %>" class="responsive-img">
 					    </div>
@@ -144,13 +169,11 @@
 			      <br>
 			      <br>
 				  </div>
-			    <div class="modal-footer blue-grey darken-4">
+			    <div class="modal-footer blue-grey darken-4" style="z-index: 4000;">
 			      <a href="#!" class="modal-close waves-effect waves-green btn-flat pink white-text">Close</a>
 			    </div>
 			  </div>
 			<hr>
-			<br>
-			<br>
     <% }) %>
   </div>
   <br>
