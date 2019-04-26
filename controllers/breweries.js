@@ -54,7 +54,6 @@ router.post('/results', (req, res) => {
 				}
 				return JSON.stringify(markerObj)
 			})
-			console.log(mapBoxKey)
 			res.render('breweries/results', { results: results, mapkey: mapBoxKey, markers })
 		}
 	})
@@ -62,6 +61,7 @@ router.post('/results', (req, res) => {
 
 // POST /:id
 router.post('/:id', (req, res) => {
+	console.log('GOT TO POST /:ID ROUTE', req.user ? req.user.id : "NOT LOGGEDIN????")
 	if (req.user) {
 		// database writer to faves
 		db.brewery.findOrCreate({
@@ -83,11 +83,11 @@ router.post('/:id', (req, res) => {
 		})
 		.spread((butts, wasCreated) => {
 			if (!db.beer.findAll({where: { breweryId: butts.id }})) {
-				console.log('butts', butts, wasCreated)
+				console.log('wasCreated was:', butts.id, wasCreated)
 				res.status(200).send('success')
 				return
 			}
-			console.log('butts', butts, wasCreated)
+			console.log('ABC - making beers', butts, wasCreated)
 			db.beer.findOrCreate({
 				where: {
 					name: req.body.name,
