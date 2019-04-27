@@ -9,6 +9,9 @@
   	<script src='https://static-assets.mapbox.com/gl-pricing/dist/mapbox-gl.js'></script>
   	<link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
 	<link rel="stylesheet" type="text/css" href="/style.css">
+	<script>
+		let mapDefined = false
+	</script>
 </head>
 <body class="blue-grey darken-3 white-text">
 	<% include ./partials/nav %>
@@ -35,7 +38,14 @@
 			})
 		})
 		$(document).ready(function(){
-			$('.modal').modal();
+			$('.modal').modal({
+				onOpenEnd: () => {
+					console.log('opened the modal')
+					if (mapDefined && map) {
+						map.resize()
+					}
+				}
+			});
 		});
 	</script>
 </body>

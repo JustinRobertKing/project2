@@ -89,10 +89,10 @@
 	<div class="modal-content blue-grey darken-3">
     <% breweries.forEach((b, i) => { %>
 	    <div class="row">
-	    	<form method="POST" action="/profile/?_method=DELETE">
-	    		<button type="submit" name="<%= b.name %>" class="btn-floating btn-small right waves-effect waves-light pink"><i class="material-icons white-text" style="border-radius: 50%; padding: 0">close</i></button>
-			    <label></label>
-	    	</form>
+	    	<a class="remove-brewery btn-floating btn-small right waves-effect waves-light pink"
+	    		data-brewery-id="<%= b.id %>">
+	    		<i class="material-icons white-text" style="border-radius: 50%; padding: 0">close</i>
+	    	</a>
 		    <a class="modal-trigger white-text" href="#modal<%= i %>">
 		    	<h5 class="left-align teal-text text-accent-3">
 			    	<%= b.name %>
@@ -120,43 +120,42 @@
 		   	<div class="modal-content blue-grey darken-3 left-align" style="line-height: 1.2">
 	      	<% b.beers.forEach((r) => { %>
 		      	<div class="row">
-		      		<form method="POST" action="/profile/?_method=DELETE">
-		      			<input type="hidden" name="id" value="<%= r.id %>">
-				    		<button type="submit" class="btn-floating btn-small right waves-effect waves-light pink"><i class="material-icons white-text" style="border-radius: 50%; padding: 0">close</i></button>
-						    <label></label>
-				    	</form>
+			    		<a class="remove-beer btn-floating btn-small right waves-effect waves-light pink"
+			    			data-beer-id="<%= r.id %>">
+			    			<i class="material-icons white-text" style="border-radius: 50%; padding: 0">close</i>
+			    		</a>
 				      <h6 class="teal-text text-accent-3 left-align">
 				      	<%= r.name %>
 				      </h6>
 				      <div class="col s7 left-align">
 				      	<br>
 				      	<ul>
-						      <li>
-						      	<small>
-						      		<% if (r.abv) { %>
-							      		ABV: <%= r.abv %>%
-							      	<% } %>
-						      	</small>
-						      </li>
-						      <li>
-						      	<small>
-							      	<% if (r.ibu) { %>
-							      		IBU: <%= r.ibu %>
-							      	<% } %>
-						      	</small>
-						      </li>
-						      <li>
-							    	<small>
-							      	Style: <%= r.style %>
-							      </small>
-							    </li>	
-							    <li>
-							    	<small>
-							    		<% if (r.availability) { %>
-							    			Availability: <%= r.availability %>
-							    		<% } %>
-							    	</small>
-							    </li>
+					      <li>
+					      	<small>
+					      		<% if (r.abv) { %>
+						      		ABV: <%= r.abv %>%
+						      	<% } %>
+					      	</small>
+					      </li>
+					      <li>
+					      	<small>
+						      	<% if (r.ibu) { %>
+						      		IBU: <%= r.ibu %>
+						      	<% } %>
+					      	</small>
+					      </li>
+					      <li>
+						    	<small>
+						      	Style: <%= r.style %>
+						      </small>
+						    </li>	
+						    <li>
+						    	<small>
+						    		<% if (r.availability) { %>
+						    			Availability: <%= r.availability %>
+						    		<% } %>
+						    	</small>
+						    </li>
 				      	</ul>
 					    </div>
 					    <div class="col s5 right left-align">

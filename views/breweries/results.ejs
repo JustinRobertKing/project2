@@ -28,7 +28,7 @@
           <div class="card-action center-align">
             <form method="GET" action="/breweries/<%= r.brewery.id %>">
               <input type="hidden" name="breweryId" value="<%= r.brewery.id %>">
-              <button id="resizeMap" class="btn waves-effect waves-light pink" type="submit">About this Brewery
+              <button class="btn waves-effect waves-light pink" type="submit">About this Brewery
                 <i class="material-icons right">info_outline</i>
               </button>        
             </form>
@@ -38,7 +38,7 @@
     </div>
   <% }) %>
 </div>
-   <div id="modal1" class="modal bottom-sheet modal-fixed-footer" style="max-height: 100%; height: 100%; top: 0;">
+   <div id="modal1" class="modal bottom-sheet modal-fixed-footer center-align" style="max-height: 100%; height: 100%; top: 0;">
       <div class="navbar-fixed">
         <nav class="pink">
           <h4 style="margin: 10px;">MAP VIEW</h4>
@@ -53,6 +53,7 @@
   </div>
 </div>
 <script>
+  mapDefined = true
   mapboxgl.accessToken = '<%= mapkey %>'
   let map = new mapboxgl.Map({
     container: 'map',
@@ -61,7 +62,7 @@
     zoom: 13
   })
   map.on('load', () => {
-    var fixButton = document.getElementById('resizeMap');
+    console.log('load called')
     map.addLayer({
       "id": "points",
       "type": "symbol",
@@ -78,10 +79,15 @@
         "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
         "text-offset": [0, 0.6],
         "text-anchor": "top"
+      },
+      "paint": {
+        "text-color": "#e91c63"
       }
+
     })
-    fixButton.onclick = function() {
-      map.resize();  
-    }
+    map.resize();
+  })
+  map.on('resize', () => {
+    console.log('resized')
   })
 </script>

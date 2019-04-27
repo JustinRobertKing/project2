@@ -18,7 +18,7 @@ router.get('/', loggedIn, (req, res) => {
 		include: [db.beer]
 	})
 	.then((breweries) => {
-		console.log(breweries)
+		// console.log(breweries)
 		res.render('profile/index', { breweries: breweries })
 	})
 	.catch((error) => {
@@ -33,23 +33,57 @@ router.get('/admin', adminLoggedIn, (req, res) => {
 
 // PUT /profile edit your bio
 router.put('/', (req,res) => {
-	db.user.update({
-		bio: req.body.bio
-	}, {
-		where: { id: req.user.id }
+	if (req.user) {
+		db.user.update({
+			bio: req.body.bio
+		}, {
+			where: { id: req.user.id }
+		})
+		.then((updatedUser) => {
+			res.redirect('/profile')
+		})
+		.catch((error) => {
+			console.log('error', error)
+		})
+	} else {
+		res.redirect('/auth/login')
+	}
+})
+
+router.delete('/beers', (req, res) => {
+	console.log('delete beers route', req.body)
+	db.beer.destroy({ 
+		where: { 
+			id: req.body.id,	
+			userId: req.user.id
+		}
 	})
-	.then((updatedUser) => {
-		res.redirect('/profile')
+	.then((deletedBeer) => {
+		res.status(200).send('success')
 	})
 	.catch((error) => {
 		console.log('error', error)
 	})
 })
 
-router.delete('/', (req, res) => {
-	db.beer.destroy({ where: { id: req.body.id }})
-	.then((deletedBeer) => {
-		res.redirect('/profile')
+router.delete('/breweries', (req, res) => {
+	console.log('delete breweries route', req.body)
+	db.beer.destroy({ 
+		where: { 
+			breweryId: req.body.id,
+			userId: req.user.id 
+		}
+	})
+	.then((deletedBeers) => {
+		db.brewery.destroy({
+			where: {
+				id: req.body.id,
+				userId: req.user.id
+			}
+		})
+		.then((deletedBrewery) => {
+			res.status(200).send('success')
+		})
 	})
 	.catch((error) => {
 		console.log('error', error)

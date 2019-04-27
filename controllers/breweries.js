@@ -17,8 +17,8 @@ const mapBoxKey = process.env.MAPBOX_KEY
 const mb = mapBoxClient({ accessToken: mapBoxKey })
 const geocode = mapBoxGeocode(mb)
 
-let userLat = 47.2529
-let userLong = -122.4443
+let userLat = 38.2324
+let userLong = -122.6367
 
 router.get('/', (req, res) => {
 	res.render('breweries/index')	
@@ -26,8 +26,8 @@ router.get('/', (req, res) => {
 
 router.post('/results', (req, res) => {
 	console.log(req.body.lat, req.body.lng)
-	// userLat = req.body.lat
-	// userLong = req.body.lng
+	userLat = req.body.lat
+	userLong = req.body.lng
 
 	var url = process.env.API_URL_GEO + 'lat=' + userLat + '&lng=' + userLong + '&key=' + process.env.API_KEY
 	// console.log(url)
@@ -40,6 +40,7 @@ router.post('/results', (req, res) => {
 			res.send('ahh shit')
 		} else {
 			var results = JSON.parse(body)
+			console.log(results)
 			let markers = results.data.map((b) => {
 				let markerObj = {
 					"type": "Feature",
