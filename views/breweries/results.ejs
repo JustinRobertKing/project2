@@ -38,7 +38,7 @@
     </div>
   <% }) %>
 </div>
-   <div id="modal1" class="modal bottom-sheet modal-fixed-footer center-align" style="max-height: 100%; height: 100%; top: 0;">
+  <div id="modal1" class="modal bottom-sheet modal-fixed-footer center-align" style="max-height: 100%; height: 100%; top: 0;">
       <div class="navbar-fixed">
         <nav class="pink">
           <h4 style="margin: 10px;">MAP VIEW</h4>
@@ -59,10 +59,9 @@
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v10',
     center: [<%= userLong %>, <%= userLat %>],
-    zoom: 13
+    zoom: 15
   })
   map.on('load', () => {
-    console.log('load called')
     map.addLayer({
       "id": "points",
       "type": "symbol",
@@ -85,9 +84,5 @@
       }
 
     })
-    map.resize();
-  })
-  map.on('resize', () => {
-    console.log('resized')
   })
 </script>

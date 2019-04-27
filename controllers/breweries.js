@@ -62,7 +62,6 @@ router.post('/results', (req, res) => {
 
 // POST /:id
 router.post('/:id', (req, res) => {
-	console.log('GOT TO POST /:ID ROUTE', req.user ? req.user.id : "NOT LOGGEDIN????")
 	if (req.user) {
 		// database writer to faves
 		db.brewery.findOrCreate({
