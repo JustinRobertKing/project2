@@ -21,7 +21,7 @@
 			</div>
 			<div>
 				<br>
-				<button class="btn waves-effect waves-light pink" type="submit">Search
+				<button id="submit" class="btn waves-effect waves-light pink" type="submit">Search
 					<i class="material-icons right">send</i>
 				</button>
 			</div>
@@ -34,6 +34,9 @@ var lng = document.getElementById("lng");
 var check = document.getElementById('check')
 
 function getLocation() {
+	$('#city').attr('disabled', true)
+	$('#state').attr('disabled', true)
+	$('#submit').attr('disabled', true)
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(loadPosition);
   } else { 
@@ -45,5 +48,6 @@ function loadPosition(position) {
   lat.value = position.coords.latitude
   lng.value = position.coords.longitude
   check.textContent = ' ✓ current location set'
+	$('#submit').attr('disabled', false)
 }
 </script>

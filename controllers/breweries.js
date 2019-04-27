@@ -26,8 +26,8 @@ router.get('/', (req, res) => {
 
 router.post('/results', (req, res) => {
 	console.log(req.body.lat, req.body.lng)
-	userLat = req.body.lat
-	userLong = req.body.lng
+	// userLat = req.body.lat
+	// userLong = req.body.lng
 
 	var url = process.env.API_URL_GEO + 'lat=' + userLat + '&lng=' + userLong + '&key=' + process.env.API_KEY
 	// console.log(url)
