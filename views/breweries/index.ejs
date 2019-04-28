@@ -1,6 +1,5 @@
 <div class="center-align">
-	<h3>Where are you?</h3>
-	<br>
+	<h3 class="teal-text text-accent-3">WHERE ARE YOU?</h3>
 	<br>
 	<div class="row">
 		<button onclick="getLocation()" class="btn waves-effect waves-light pink">Use my current location
@@ -11,15 +10,17 @@
 		<form method="POST" action="/breweries/results">
 			<input type="hidden" id="lat" name="lat" value="">
 			<input type="hidden" id="lng" name="lng" value="">
+			<hr>
 			<br>
-			<h5>Or search by city/state:</h5>
-			<div class="input-field col s12 m6">
+			<h5 id="search">SEARCH BY CITY / STATE</h5>
+			<div class="input-field col s12">
 				<input type="text" name="city" id="city" placeholder="Enter your city">
 			</div>
-			<div class="input-field col s12 m6">
+			<div class="input-field col s12">
 				<input type="text" name="state" id="state" placeholder="Enter your state">
 			</div>
-			<div>
+			<div class="input-field col s12">
+				<hr>
 				<br>
 				<button id="submit" class="btn waves-effect waves-light pink" type="submit">Search
 					<i class="material-icons right">send</i>
@@ -35,8 +36,11 @@ var check = document.getElementById('check')
 
 function getLocation() {
 	$('#city').attr('disabled', true)
+	$('#city').attr('placeholder', '')
 	$('#state').attr('disabled', true)
+	$('#state').attr('placeholder', '')
 	$('#submit').attr('disabled', true)
+	$('#search').css('color', 'grey')
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(loadPosition);
   } else { 

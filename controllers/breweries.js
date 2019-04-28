@@ -25,39 +25,106 @@ router.get('/', (req, res) => {
 })
 
 router.post('/results', (req, res) => {
-	console.log(req.body.lat, req.body.lng)
-	// userLat = req.body.lat
-	// userLong = req.body.lng
-
-	var url = process.env.API_URL_GEO + 'lat=' + userLat + '&lng=' + userLong + '&key=' + process.env.API_KEY
-	// console.log(url)
-	var results = []
-
-	request(url, (error, response, body) => {
-		if (error) {
-			console.log('error: ', error)
-			console.log('status code: ', response.statusCode)
-			res.send('ahh shit')
-		} else {
-			var results = JSON.parse(body)
+	if (req.body.city) {
+		console.log(req.body)
+		// forward Geocode with req.query.city and req.query.state
+		geocode.forwardGeocode({
+			query: req.body.city + ', ' + req.body.state,
+			types: ['place'], 
+			countries: ['us']
+		})
+		.send()
+		.then((response) => {
+			console.log(response)
+			let results = response.body.features.map((city) => {
+				let placeNameArray = city.place_name.split(', ')
+				return {
+					name: placeNameArray[0],
+					state: placeNameArray[1],
+					lat: city.center[1],
+					long: city.center[0]
+				}
+			})
+			userLat = results[0].lat
+			userLong = results[0].long
 			console.log(results)
-			let markers = results.data.map((b) => {
-				let markerObj = {
-					"type": "Feature",
-					"geometry": {
-						"type": "Point",
-						"coordinates": [b.longitude, b.latitude]
-					},
-					"properties": {
-						"title": b.brewery.nameShortDisplay,
-						"icon": "beer"
+			var url = process.env.API_URL_GEO + 'lat=' + userLat + '&lng=' + userLong + '&key=' + process.env.API_KEY
+			var resp = []
+
+			request(url, (error, response, body) => {
+				if (error) {
+					console.log('error: ', error)
+					console.log('status code: ', response.statusCode)
+					res.send('ahh shit')
+				} else {
+					var resp = JSON.parse(body)
+					console.log(resp)
+					if (resp.data) {
+						let markers = resp.data.map((b) => {
+							let markerObj = {
+								"type": "Feature",
+								"geometry": {
+									"type": "Point",
+									"coordinates": [b.longitude, b.latitude]
+								},
+								"properties": {
+									"title": b.brewery.nameShortDisplay,
+									"icon": "beer"
+								}
+							}
+							return JSON.stringify(markerObj)
+						})
+						res.render('breweries/results', { results: resp, mapkey: mapBoxKey, markers, userLong, userLat})
+					} else {
+						res.render('breweries/whompwhomp')
 					}
 				}
-				return JSON.stringify(markerObj)
 			})
-			res.render('breweries/results', { results: results, mapkey: mapBoxKey, markers, userLong, userLat})
-		}
-	})
+		})
+		.catch((error) => {
+			console.log('error', error)
+			res.render('404')
+		})
+	} else if (req.body.lat) {
+		console.log(req.body.lat, req.body.lng)
+		userLat = req.body.lat
+		userLong = req.body.lng
+
+		var url = process.env.API_URL_GEO + 'lat=' + userLat + '&lng=' + userLong + '&key=' + process.env.API_KEY
+		var results = []
+
+		request(url, (error, response, body) => {
+			if (error) {
+				console.log('error: ', error)
+				console.log('status code: ', response.statusCode)
+				res.send('ahh shit')
+			} else {
+				var results = JSON.parse(body)
+				console.log(results)
+				if (results.data) {
+					let markers = results.data.map((b) => {
+						let markerObj = {
+							"type": "Feature",
+							"geometry": {
+								"type": "Point",
+								"coordinates": [b.longitude, b.latitude]
+							},
+							"properties": {
+								"title": b.brewery.nameShortDisplay,
+								"icon": "beer"
+							}
+						}
+						return JSON.stringify(markerObj)
+					})
+					res.render('breweries/results', { results: results, mapkey: mapBoxKey, markers, userLong, userLat})
+				} else {
+					res.render('breweries/whompwhomp')
+				}
+			}
+		})
+	} else {
+		res.render('404')
+	}
 })
 
 // POST /:id
