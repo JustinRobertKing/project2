@@ -71,6 +71,7 @@
   map.on('load', () => {
     map.addLayer({
       "id": "points",
+      "name": "points",
       "type": "symbol",
       "source": {
         "type": "geojson",
@@ -90,5 +91,30 @@
         "text-color": "#e91c63"
       }
     })
-  })
+  });
+  map.on('click', function(e) {
+    var features = map.queryRenderedFeatures(e.point, {
+      layers: ['points'] // replace this with the name of the layer
+    });
+
+    if (!features.length) {
+      return;
+    }
+
+    var feature = features[0];
+    let featureLng = feature.geometry.coordinates[0]
+    let markers = [<%- markers %>];
+    var id = null
+    markers.forEach((r) => {
+      if (Math.floor(featureLng * 10000000) / 10000000 == r.geometry.coordinates[0]) {
+        id = r.properties.id
+      }
+    })
+
+    var popup = new mapboxgl.Popup({ offset: [0, -15] })
+      .setLngLat(feature.geometry.coordinates)
+      .setHTML('<a href="/breweries/' + id + '" class="pink-text">MORE INFO</a>')
+      .setLngLat(feature.geometry.coordinates)
+      .addTo(map);
+    })
 </script>

@@ -26,7 +26,6 @@ router.get('/', (req, res) => {
 
 router.post('/results', (req, res) => {
 	if (req.body.city) {
-		console.log(req.body)
 		// forward Geocode with req.query.city and req.query.state
 		geocode.forwardGeocode({
 			query: req.body.city + ', ' + req.body.state,
@@ -47,7 +46,6 @@ router.post('/results', (req, res) => {
 			})
 			userLat = results[0].lat
 			userLong = results[0].long
-			console.log(results)
 			var url = process.env.API_URL_GEO + 'lat=' + userLat + '&lng=' + userLong + '&key=' + process.env.API_KEY
 			var resp = []
 
@@ -58,7 +56,6 @@ router.post('/results', (req, res) => {
 					res.send('ahh shit')
 				} else {
 					var resp = JSON.parse(body)
-					console.log(resp)
 					if (resp.data) {
 						let markers = resp.data.map((b) => {
 							let markerObj = {
@@ -69,7 +66,8 @@ router.post('/results', (req, res) => {
 								},
 								"properties": {
 									"title": b.brewery.nameShortDisplay,
-									"icon": "beer"
+									"icon": "beer",
+									"id": b.brewery.id
 								}
 							}
 							return JSON.stringify(markerObj)
@@ -100,7 +98,6 @@ router.post('/results', (req, res) => {
 				res.send('ahh shit')
 			} else {
 				var results = JSON.parse(body)
-				console.log(results)
 				if (results.data) {
 					let markers = results.data.map((b) => {
 						let markerObj = {
@@ -111,11 +108,13 @@ router.post('/results', (req, res) => {
 							},
 							"properties": {
 								"title": b.brewery.nameShortDisplay,
-								"icon": "beer"
+								"icon": "beer",
+								"id": b.brewery.id
 							}
 						}
 						return JSON.stringify(markerObj)
 					})
+					console.log('results', results.data[0])
 					res.render('breweries/results', { results: results, mapkey: mapBoxKey, markers, userLong, userLat})
 				} else {
 					res.render('breweries/whompwhomp')
@@ -227,7 +226,7 @@ let beers = (breweryBeersURL, data, results, results2, res) => {
 			// console.log('status code: ', response.statusCode)
 		} else {
 			results3 = JSON.parse(body)
-			console.log(results3)
+			console.log(results)
 			res.render('breweries/show', {
 				results: results.data,
 				results2: results2.data,
