@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			console.log('GOT HERE; MAKING CALL ')
 			// fetch or ajax
 			$.ajax({
-				url: 'https://beer-savor.herokuapp.com/breweries/' + this.getAttribute('data-id'),
+				url: 'http://localhost:3000/breweries/' + this.getAttribute('data-id'),
 				method: 'POST',
 				data: {
 					breweryApiId: this.getAttribute('data-brewery-id'), 
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			$(this).find('i:first').text('check')
 			// fetch or ajax
 			$.ajax({
-				url: 'https://beer-savor.herokuapp.com/breweries/' + this.getAttribute('data-id'),
+				url: 'http://localhost:3000/breweries/' + this.getAttribute('data-id'),
 				method: 'POST',
 				data: {
 					breweryApiId: this.getAttribute('data-brewery-id'), 
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			this.parentNode.textContent = 'REMOVED FROM SAVED BEERS'
 			// fetch or ajax
 			$.ajax({
-				url: 'https://beer-savor.herokuapp.com/profile/beers/',
+				url: 'http://localhost:3000/profile/beers/',
 				method: 'DELETE',
 				data: {
 					id: this.getAttribute('data-beer-id')
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			this.parentNode.textContent = 'REMOVED FROM SAVED BREWERIES'
 			// fetch or ajax
 			$.ajax({
-				url: 'https://beer-savor.herokuapp.com/profile/breweries/',
+				url: 'http://localhost:3000/profile/breweries/',
 				method: 'DELETE',
 				data: {
 					id: this.getAttribute('data-brewery-id')

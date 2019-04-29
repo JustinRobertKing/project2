@@ -35,7 +35,15 @@ router.post('/signup', (req, res, next) => {
 	} else {
 		db.user.findOrCreate({
 			where: { email: req.body.email },
-			defaults: req.body
+			defaults: { 
+				firstname: req.body.firstname,
+				lastname: req.body.lastname,
+				email: req.body.email,
+				password: req.body.password,
+				birthdate: req.body.birthdate,
+				image: req.body.image ? req.body.image : 'https://res.cloudinary.com/dbm4iqqrz/image/upload/v1555700504/Profile_avatar_placeholder_large_bqsbnw.png',
+				bio: req.body.bio
+			}
 		})
 		.spread((user, wasCreated) => {
 			if (wasCreated) {
@@ -55,7 +63,7 @@ router.post('/signup', (req, res, next) => {
 			// Print all error info to the terminal (not okay for the user to see)
 			console.log('Error in POST /auth/signup:', error)
 			// Generic error for all cases
-			req.flash('error', 'Something went wrong')
+			req.flash('error', 'All fields are required. Please ensure that all of the information you have provided is accurate and follows appropriate formatting where specified')
 			// Validation-specific errors (okay to show the user)
 			if (error && error.errors) {
 				error.errors.forEach((e) => {
