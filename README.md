@@ -1,14 +1,25 @@
-# Node/Express/PostreSQL Boilerplate
+# Beer Savor
 
-This is a bare-bones Node/Express app with basic user authentication and authorization. It has local auth on the `master` branch and Facebook auth on the `with-facebook` branch. This boilerplate exists so that I can streamline the creation of project that requires a working auth, without the need to start from scratch.
+Beer Savor is a mobile web app designed to make it easy for users to find nearby breweries and keep track of the beers that they have enjoyed from said breweries. 
 
-## What it includes
+## Technologies Used
 
-* Sequelize is set up for PostgreSQL
-* Sequelize model and migration(s) for user
-* Passport, Express-Session, and Connect-Flash modules
-* Error/Success message alerts
-* BCrypt for hashing passwords
+* Node.js
+* Sequelize
+* JavaScript
+* JQuery
+* HTML
+* EJS
+* CSS
+* Materialize
+
+## Where Does The Data Come From?
+
+We use `brewerydb.com` APIs for all beer related content and `Mapbox` APIs for geocoding and map view. 
+
+## What Is Being Stored?
+
+Beer Savor saves information on users, breweries, and beers. The following schemas show exactly what is being stored.
 
 ### User Schema
 
@@ -23,15 +34,8 @@ This is a bare-bones Node/Express app with basic user authentication and authori
 | admin | Boolean | Set default value to false |
 | image | Text | A URL to an image of the user - required field |
 | bio | Text | - |
-
-Additional fields from `with-facebook`
-
-| Column | Data Type | Description |
-|--------|-----------|-------------|
 | facebookId | String | Facebook Profile Id |
 | facebookToken | String | Facebook Login Token |
-
-This is the default schema provided. Add additional migrations as needed for more data.
 
 ### Brewery Schema
 
@@ -67,186 +71,60 @@ This is the default schema provided. Add additional migrations as needed for mor
 | userId | Integer | Foreign key from user table |
 
 
-### Added Routes Table
-
-| GET | / | index.js | Home - has map |
-| GET | /breweries | controllers/breweries.js | Renders brewery search form |
-| POST | /breweries | controllers/breweries.js | Handles query |
-
-### Default Routes Table
-
-By default, the following routes are provided
+## Routes Used
 
 | Method | Path | Location | Purpose |
 |--------|------|----------|---------|
 | GET | / | index.js | Home Page |
+
+### Profile Routes
+
+| Method | Path | Location | Purpose |
+|--------|------|----------|---------|
 | GET | /profile | controllers/profile.js | User Profile Page |
 | GET | /profile/admin | controllers/profile.js | Admin Dashboard Page |
+| PUT | /profile | controllers/profile.js | Allows user to edit bio |
+| DELETE | /profile/beers | controllers/profile.js | Remove a specific beer from user saves |
+| DELETE | /profile/breweries | controllers/profile.js | Remove a brewery and it's beers from saves |
+
+### Authorization Routes
+
+| Method | Path | Location | Purpose |
+|--------|------|----------|---------|
 | GET | /auth/login | controllers/auth.js | Renders Login Form |
 | POST | /auth/login | controllers/auth.js | Handles Login Auth |
 | GET | /auth/signup | controllers/auth.js | Renders Signup Form |
 | POST | /auth/signup | controllers/auth.js | Handles New User Signup |
 | GET | /auth/logout | controllers/auth.js | Removes User Session Data |
-
-Additional routes from `with-facebook` branch if using oAuth:
-
-| Method | Path | Location | Purpose |
-|--------|------|----------|---------|
 | GET | /auth/facebook | controllers/auth.js | Outgoing Request to Facebook |
 | GET | /auth/callback/facebook | controllers/auth.js | Incoming Data from Facebook |
 
-## Steps To Use
+### Brewery Data Routes
 
-#### 1. Clone this repository, but with a different name
+| Method | Path | Location | Purpose |
+|--------|------|----------|---------|
+| GET | /breweries | controllers/breweries.js | Renders brewery search form |
+| POST | /breweries/results | controllers/breweries.js | Displays search results - includes map view |
+| GET | /breweries/:id | controllers/breweries.js | Shows info for a specific brewery |
+| POST | /breweries/:id | controllers/breweries.js | Handles brewery and beer saving by user |
 
-On your terminal, run:
+## Challenges In Development
 
-```
-git clone <repo_link> <new_name>
-```
+#### Sifting through the APIs
 
-#### 2. Decide what the new project needs
+While not necessarily difficult, one of the more time consuming tasks for this project was to sift through all of the API documentation provided by `brewerydb.com`. They have just about every spec of information that you could need for a brewery.. if you know where to look for it. Take the time to really get to know the structure of the information at your fingertips. This makes the development process flow much more naturally as you move forward. 
 
-If you do not need facebook auth, use the `master` branch. Otherwise, switch to the `with-facebook` branch. 
+#### Mapbox is a bit of a nightmare
 
-```
-git checkout with-facebook
-```
+Want to know how to change a color? Here's an entire tutorial on how to build a map from scratch, add points, add zoom controls, and locate the user! But... how do I change a color? Oh, didn't you see the code for that nested in the forEach loop under the add points section of the tutorial? NO?? Come on, it's all right there!
 
-> Note: If using Facebook, you will need to set up a new app on developers.facebook.com
+I think you get the idea. There is almost no such thing as a reference doc. There are, however, piles and piles of tutorials that may have what you need nested somewhere inside of it. Also, you can't make a marker a link without nesting it in a popup. That is not intuitive.
 
-**Part B: Remove stuff not being used**
 
-For example: if you don't intend to have adminw on the new project, remove`middleware/adminLoggedIn.js` and the routes/views for the admin dashboard.
 
-#### 3. Install node modules from package.json
 
-On your terminal, run:
 
-```
-npm install
-```
 
-> Tip: `npm i` can be used as a shortcut
 
-#### 5. Restructure Git Remotes
 
-Basically, this is git's version of updating the address book.
 
-* First, remove the "old" remote.
-	* `git remote remove origin`
-* Then go to github and create a new, empty repository
-* Copy the new repository link
-* Set up a new remote pointing to the new repository
-	* `git remote add origin <new_repo_link>`
-
-#### 5. Make a new .env file
-
-At minimum, the following is needed: 
-
-```
-SESSION_SECRET = 'This is a string for the session to use (like a salt)'
-```
-
-Optional others, including facebook specific ones: 
-
-```
-PORT = 3000
-FACEBOOK_APP_ID = 123456789012345
-FACEBOOK_APP_SECRET = '1234567890abcdef1234567890abcdef'
-BASE_URL = 'http://localhost:3000'
-```
-
-#### 6. Customize with the new project's name
-
-* Title in `layout.ejs`
-* Logo and links in `nav.ejs`
-* The name, description, and repo fields in `package.json`
-* Remove the `README.md` content (this) and put a stub for the new project's readme
-
-#### 7. Create a new database for the new project
-
-```
-createdb <new_database_name>
-```
-
-#### 8. Set up Sequelize
-
-First, update the development settings in the `config/config.json` file.
-
-```js
-{
-  "development": {
-    "database": "<new_database_name>",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "test": {
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "production": {
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  }
-}
-
-```
-
-(Optional) If additional fields on the user table are needed, follow directions [here](#adding-migrations) to create additional migrations.
-
-Then, do the Sequelize migrations with this command:
-
-```
-sequelize db:migrate
-```
-
-#### 9. Run the server locally and ensure that it works
-
-If you have `nodemon` installed globally, run `nodemon` as a command in the root folder.
-
-Otherwise, run `node index.js`.
-
-Unless specified otherwise, the port in use will be 3000.
-
-#### 10. Commit and push to your new project
-
-> Note: We switched the origin remote to point to the new github project in step 4. Make sure that this is done properly bu checking the command `git remote-v` to check the remote locations.
-
-```
-git add -A
-git commit -m "Initial commit"
-git push origin master
-```
-
-#### 11. Next Steps
-
-Assuming that the set-up steps went smoothly, now you can add new models/migrations, new controllers and routes, etc., and just generally start developing as if you had started from scratch.
-
-## Notes on Optional Steps
-
-### Adding Migrations
-
-Here is an example of adding an `age` field to the user table
-
-* STEP 1: Creat a migration file via sequelize in the command line
-	* `sequelize migration:create --name add-age`
-* STEP 2: Write the up and down functions of the migration
-	* Refer to other migrations for how this looks
-	* `return queryInterface.addColumn('users', 'age', Sequelize.INTEGER)`
-* STEP 3: Add the column into the user model
-	* `user.js` - located in the models folder
-
-### Facebook App Set Up 
-
-> Note: A Facebook login is required
-
-* Go to developers.facebook.com
-* Create a new app
-* Add a platform: website
-* Add a product: Facebook login
-	* Set Valid OAuth Redirect URL to `https://yoursite.com/auth/callback/facebook`
-
-* Copy the App Id and App Secret to the `.env` file
