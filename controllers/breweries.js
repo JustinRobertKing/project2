@@ -10,6 +10,7 @@ let mapBoxGeocode = require('@mapbox/mapbox-sdk/services/geocoding')
 let router = express.Router()
 let db = require('../models')
 let loggedIn = require('../middleware/loggedIn')
+let adminLoggedIn = require('../middleware/adminLoggedIn')
 let results, results2, results3;
 
 // Give mapbox our key

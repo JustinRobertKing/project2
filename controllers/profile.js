@@ -11,7 +11,7 @@ let db = require('../models')
 let adminLoggedIn = require('../middleware/adminLoggedIn')
 let loggedIn = require('../middleware/loggedIn')
 
-// Declare routs
+// Declare routes
 router.get('/', loggedIn, (req, res) => {
 	db.brewery.findAll({
 		where: { userId: req.user.id },
