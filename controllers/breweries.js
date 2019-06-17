@@ -236,27 +236,5 @@ let beers = (breweryBeersURL, data, results, results2, res) => {
 	})	
 }
 
-// .then((faves) => {
-// 		// TODO create an array of geojson data
-// 		let markers = faves.map((city) => {
-// 			let markerObj = {
-// 				"type": "Feature",
-// 				"geometry": {
-// 					"type": "Point",
-// 					"coordinates": [city.long, city.lat]
-// 				},
-// 				"properties": {
-// 					"title": city.name,
-// 					"icon": "airport"
-// 				}
-// 			}
-// 			return JSON.stringify(markerObj)
-// 		})
-// 		res.render('cities/faves', { faves, mapkey: mapBoxKey, markers })
-// 	})
-// 	.catch((error) => {
-// 		console.log('error', error)
-// 	})
-
 // Export the routes from this file
 module.exports = router

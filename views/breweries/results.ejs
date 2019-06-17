@@ -106,7 +106,9 @@
     let markers = [<%- markers %>];
     var id = null
     markers.forEach((r) => {
-      if (Math.floor(featureLng * 10000000) / 10000000 == r.geometry.coordinates[0]) {
+      if (Math.floor(featureLng * 10000000) / 10000000 <= r.geometry.coordinates[0] + .00001 &&
+        Math.floor(featureLng * 10000000) / 10000000 >= r.geometry.coordinates[0] - .00001
+        ) {
         id = r.properties.id
       }
     })
