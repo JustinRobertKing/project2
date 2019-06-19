@@ -2,6 +2,8 @@
 
 Beer Savor is a mobile web app designed to make it easy for users to find nearby breweries and keep track of the beers that they have enjoyed from said breweries. 
 
+<img src="./screenshots.png" alt="Beer Savor"/>
+
 ## Technologies Used
 
 * Node.js
