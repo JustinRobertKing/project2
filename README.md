@@ -14,6 +14,7 @@ Beer Savor is a mobile web app designed to make it easy for users to find nearby
 * EJS
 * CSS
 * Materialize
+* Cloudinary
 
 ## Where Does The Data Come From?
 
