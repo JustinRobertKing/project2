@@ -4,18 +4,19 @@
 	<p>
 		Already a member? <a href="/auth/login" class="pink-text">Log in</a>!
 	</p>
-	<br>
+<!-- 	<br>
 	<a href="/auth/facebook">
 		<button class="btn waves-effect waves-light pink" type="submit">Sign up with Facebook
 			<i class="material-icons right">account_box</i>
 		</button>
-	</a>
+	</a> -->
+<!-- 	<br>
 	<br>
-	<br>
-	<br>
+	<br> -->
 
-	<h4>Sign up by email:</h4>
-
+<!-- 	<h4>Sign up by email:</h4>
+ -->
+ 	<br>
 	<div class="row">
 		<form class="col s12" method="POST" action="/auth/signup">
 			<div class="row">
@@ -40,10 +41,13 @@
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
-					<input placeholder="Your picture" id="image" name="image" type="url" class="white-text validate">
+					<input placeholder="Paste a url or upload a photo below" id="image" name="image" type="text" class="white-text validate">
 					<label for="image">Image URL</label>
-				</div>
-			</div>
+	      	<!-- cloudinary widget -->
+          <button class="btn-small waves-effect waves-light pink" type="button" id="upload_widget_opener" style="width: 100%;">Upload Profile Photo
+          <i class="material-icons right">add_a_photo</i></button>
+        </div>
+      </div>
 			<div class="row">
 				<div class="input-field col s12 m6">
 					<input placeholder="Create password" id="password" name="password" type="password" class="white-text validate">
@@ -70,3 +74,18 @@
 		</form>
 	</div>
 </div>
+<script>
+  document.getElementById("upload_widget_opener").addEventListener("click", function() {
+    console.log('clicked')
+    cloudinary.openUploadWidget({ cloud_name: 'dbm4iqqrz', upload_preset: 'beer-savor', folder: 'Beer-Savor'},
+    function(error, result) {
+      console.log('result: ', error, result)
+      // Push URL into text input
+      if (result.info.url) {
+        document.getElementById('image').value = result.info.url;
+      } else {
+        console.log('no result')
+      }
+    });
+  }, false);
+</script>
